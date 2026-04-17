@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Übung: Prozentrechnung</title>
+    <style>
+        :root { --main: #e17055; --light: #fab1a0; }
+        body { font-family: sans-serif; background: #ecf0f1; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); max-width: 800px; margin: auto; }
+        .question { margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--main); background: #f9f9f9; }
+        input { padding: 8px; width: 120px; }
+        button { background: var(--main); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .feedback { font-weight: bold; margin-top: 5px; }
+        .correct { color: green; } .wrong { color: red; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Übung: Prozentrechnung</h1>
+        <p>Berechne die gesuchten Werte (USt meist 19% oder 7%).</p>
+        <div id="quiz-container"></div>
+        <button onclick="checkAnswers()">Prüfen</button>
+        <button onclick="location.reload()" style="background:#7f8c8d">Neue Fragen</button>
+    </div>
+
+    <script>
+        const pool = [
+            { q: "Ein Sakko kostet 99,00€ brutto. Wie viel Euro beträgt der Rabatt bei 10% Nachlass?", a: 9.90 },
+            { q: "Bareinnahmen brutto: 2.259,70€. Steuersatz 19%. Berechne den Nettowert.", a: 1898.91 },
+            { q: "Ein Anorak kostet nach 5% Rabatt noch 118,75€. Wie hoch war der ursprüngliche Preis?", a: 125.00 },
+            { q: "Bluse: Ursprünglich 21,00€, jetzt 16,80€. Wie viel Prozent Rabatt wurden gewährt?", a: 20 },
+            { q: "Bruttopreis 34,98€, USt 19%. Wie hoch ist der Netto-Verkaufspreis?", a: 29.39 },
+            { q: "Lederkostüm 170€, Rabatt 22,10€. Wie viel Prozent sind das?", a: 13 },
+            { q: "Oberhemd 30€, Rabatt 4,05€. Wie viel Prozent sind das?", a: 13.5 },
+            { q: "Ein Händler erhöht den Preis von 845,12€ auf 914,84€. Wie viel % Steigerung?", a: 8.25 }
+        ];
+
+        // Pool auf 30 auffüllen
+        for(let i=0; i<22; i++) {
+            let base = Math.floor(Math.random() * 500) + 50;
+            pool.push({ q: `Berechne 19% Umsatzsteuer von ${base}€ Netto.`, a: (base * 0.19).toFixed(2) });
+        }
+
+        const selected = pool.sort(() => 0.5 - Math.random()).slice(0, 5);
+        const container = document.getElementById('quiz-container');
+
+        selected.forEach((item, index) => {
+            container.innerHTML += `<div class="question"><p>${item.q}</p><input type="number" step="0.01" id="q${index}"> <div id="f${index}" class="feedback"></div></div>`;
+        });
+
+        function checkAnswers() {
+            selected.forEach((item, index) => {
+                const val = parseFloat(document.getElementById(`q${index}`).value);
+                const f = document.getElementById(`f${index}`);
+                if(Math.abs(val - item.a) < 0.15) { f.innerHTML = "Korrekt!"; f.className="feedback correct"; }
+                else { f.innerHTML = "Falsch. Korrekt: " + item.a; f.className="feedback wrong"; }
+            });
+        }
+    </script>
+</body>
+</html>
