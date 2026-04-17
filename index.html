@@ -9,7 +9,7 @@
             --bg-body: #ecf0f1;
             --text-dark: #2c3e50;
             
-            /* Farben-Sets (Hell für Erklärung, Dunkel für Übung, Schatten für 3D) */
+            /* Farben-Sets */
             --dreisatz-light: #82ccdd; --dreisatz-dark: #0a3d62;
             --durchschnitt-light: #a29bfe; --durchschnitt-dark: #4834d4;
             --prozent-light: #fab1a0; --prozent-dark: #e17055;
@@ -57,7 +57,7 @@
             text-transform: uppercase; padding-bottom: 10px;
         }
 
-        /* 3D Button Basis-Styling */
+        /* 3D Button Styling */
         .btn-3d {
             height: 100px;
             border-radius: 12px;
@@ -73,6 +73,8 @@
             position: relative;
             border: none;
             cursor: pointer;
+            text-align: center;
+            padding: 0 10px;
         }
 
         .btn-3d:active {
@@ -80,28 +82,23 @@
             box-shadow: 0 0 0 transparent !important;
         }
 
-        /* Farbspezifische 3D Effekte */
-        /* Dreisatz */
+        /* Spalten-Logik */
         .col-1 .col-title { color: var(--dreisatz-dark); border-bottom: 4px solid var(--dreisatz-dark); }
         .col-1 .light { background: var(--dreisatz-light); box-shadow: 0 6px 0 #60a3bc; color: var(--dreisatz-dark); }
         .col-1 .dark { background: var(--dreisatz-dark); box-shadow: 0 6px 0 #072d48; }
 
-        /* Durchschnitt */
         .col-2 .col-title { color: var(--durchschnitt-dark); border-bottom: 4px solid var(--durchschnitt-dark); }
         .col-2 .light { background: var(--durchschnitt-light); box-shadow: 0 6px 0 #8175e6; color: var(--durchschnitt-dark); }
         .col-2 .dark { background: var(--durchschnitt-dark); box-shadow: 0 6px 0 #341f97; }
 
-        /* Prozent */
         .col-3 .col-title { color: var(--prozent-dark); border-bottom: 4px solid var(--prozent-dark); }
         .col-3 .light { background: var(--prozent-light); box-shadow: 0 6px 0 #e8917d; color: var(--prozent-dark); }
         .col-3 .dark { background: var(--prozent-dark); box-shadow: 0 6px 0 #b33939; }
 
-        /* Zinsen */
         .col-4 .col-title { color: var(--zinsen-dark); border-bottom: 4px solid var(--zinsen-dark); }
         .col-4 .light { background: var(--zinsen-light); box-shadow: 0 6px 0 #26dead; color: var(--zinsen-dark); }
         .col-4 .dark { background: var(--zinsen-dark); box-shadow: 0 6px 0 #00947a; }
 
-        /* Kalkulation */
         .col-5 .col-title { color: var(--kalkulation-dark); border-bottom: 4px solid var(--kalkulation-dark); }
         .col-5 .light { background: var(--kalkulation-light); box-shadow: 0 6px 0 #ff5252; color: var(--kalkulation-dark); }
         .col-5 .dark { background: var(--kalkulation-dark); box-shadow: 0 6px 0 #b33939; }
@@ -123,7 +120,7 @@
     <div class="column col-1">
         <div class="col-title">Dreisatz</div>
         <a href="dreisatz_erklaerung.html" class="btn-3d light">Erklärung</a>
-        <a href="dreisatz_uebung.html" class="btn-3d dark">Übung</a>
+        <a href="dreisatz-aufgaben.html" class="btn-3d dark">Übung</a>
     </div>
 
     <div class="column col-2">
