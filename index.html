@@ -3,207 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lernportal: Prozentrechnung</title>
+    <title>Kaufmännisches Rechnen - Dashboard</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #e67e22;
-            --bg: #f0f2f5;
+            --bg-color: #f8f9fa;
+            --header-color: #2c3e50;
+            --accent-color: #e67e22; /* Akzentfarbe passend zur Prozent-Seite */
             --card-bg: #ffffff;
-            --text: #333;
+            --text-main: #333;
+            --border-light: #e0e0e0;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar Navigation */
-        nav {
-            width: 280px;
-            background-color: var(--primary);
-            color: white;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-
-        nav h2 {
-            font-size: 1.2rem;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav li {
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: background 0.3s;
-        }
-
-        nav li:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-
-        nav li.active {
-            background-color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Hauptinhalt */
-        main {
-            flex-grow: 1;
             padding: 40px;
-            max-width: 900px;
         }
 
-        .content-section {
-            display: none;
-            animation: fadeIn 0.4s ease-out;
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
         }
 
-        .content-section.active {
-            display: block;
+        h1 {
+            font-size: 2.5rem;
+            color: var(--header-color);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon-box {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .icon-placeholder {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #666;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .column-title {
+            font-size: 1.4rem;
+            color: var(--header-color);
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 5px;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 40px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        h1 { color: var(--primary); margin-top: 0; }
-        
-        .formula {
-            background: #eef2f7;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            display: block;
-            margin: 15px 0;
-            border-left: 4px solid var(--accent);
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
 
-        .example {
-            background: #fff9f1;
-            border: 1px solid #ffeaa7;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
+        /* Responsive Anpassung */
+        @media (max-width: 1100px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 700px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <h2>📖 Themenauswahl</h2>
-    <ul>
-        <li onclick="showSection('definition')" id="btn-definition" class="active">Definition</li>
-        <li onclick="showSection('preisbildung')" id="btn-preisbildung">Preisbildung</li>
-        <li onclick="showSection('dreisatz')" id="btn-dreisatz">Dreisatz-Methode</li>
-        <li onclick="showSection('prozentfaktor')" id="btn-prozentfaktor">Prozentfaktor</li>
-        <li onclick="showSection('rabatt')" id="btn-rabatt">Rabattrechnung</li>
-    </ul>
-</nav>
-
-<main>
-    <section id="definition" class="content-section active">
-        <div class="card">
-            <h1>Was ist Prozentrechnung?</h1>
-            <p>Der Begriff <strong>Prozent</strong> stammt aus dem Lateinischen "per centum" und bedeutet "vom Hundert".</p>
-            <p>In der Mathematik und im Handel dient sie dazu, Größenverhältnisse vergleichbar zu machen, indem sie auf die Basis 100 normiert werden.</p>
-            <div class="example">
-                <strong>Merksatz:</strong> 1% ist der hunderste Teil eines Ganzen.
-            </div>
+<header>
+    <h1>Kaufmännisches Rechnen</h1>
+    <div class="header-icons">
+        <div class="icon-box">
+            <div class="icon-placeholder">✉</div>
+            Kontakt
         </div>
-    </section>
-
-    <section id="preisbildung" class="content-section">
-        <div class="card">
-            <h1>Grundlagen der Preisbildung</h1>
-            <p>Im Einzelhandel unterscheiden wir zwischen Netto- und Bruttopreisen:</p>
-            <ul>
-                <li><strong>Netto (100%):</strong> Der Warenwert ohne Steuern.</li>
-                <li><strong>Umsatzsteuer:</strong> In Deutschland meist 19% oder 7% (ermäßigt).</li>
-                <li><strong>Brutto:</strong> Der Endpreis für den Kunden (Netto + MwSt).</li>
-            </ul>
-            <span class="formula">Brutto = Netto × (1 + Steuersatz/100)</span>
+        <div class="icon-box">
+            <div class="icon-placeholder">⌨</div>
+            Rechner
         </div>
-    </section>
+    </div>
+</header>
 
-    <section id="dreisatz" class="content-section">
-        <div class="card">
-            <h1>Rechnen mit dem Dreisatz</h1>
-            <p>Die klassische Methode besteht aus dem <strong>Bedingungssatz</strong> und dem <strong>Fragesatz</strong>.</p>
-            <div class="example">
-                <strong>Beispiel:</strong> Ein Artikel kostet brutto 3,49 € (inkl. 7% MwSt). Wie hoch ist die Steuer?<br><br>
-                1. Bedingung: 107% ≙ 3,49 €<br>
-                2. Frage: 7% ≙ x €<br>
-                3. Rechnung: x = (3,49 * 7) / 107
-            </div>
-            <span class="formula">x = 0,23 €</span>
-        </div>
-    </section>
+<div class="dashboard-grid">
+    
+    <div class="column">
+        <div class="column-title">Dreisatz</div>
+        <a href="dreisatz_erklaerung.html" class="card">Erklärung</a>
+        <a href="dreisatz_uebung.html" class="card">Übung</a>
+    </div>
 
-    <section id="prozentfaktor" class="content-section">
-        <div class="card">
-            <h1>Der Prozentfaktor (q)</h1>
-            <p>Der Prozentfaktor ist die Dezimaldarstellung des Prozentsatzes. Er beschleunigt die Kalkulation enorm.</p>
-            <span class="formula">Faktor = Prozentsatz / 100</span>
-            <p>Häufige Faktoren:</p>
-            <ul>
-                <li>19% MwSt aufschlagen: <strong>1,19</strong></li>
-                <li>7% MwSt aufschlagen: <strong>1,07</strong></li>
-                <li>19% MwSt herausrechnen: <strong>/ 1,19</strong></li>
-            </ul>
-        </div>
-    </section>
+    <div class="column">
+        <div class="column-title">Durchschnitt</div>
+        <a href="durchschnitt_erklaerung.html" class="card">Erklärung</a>
+        <a href="durchschnitt_uebung.html" class="card">Übung</a>
+    </div>
 
-    <section id="rabatt" class="content-section">
-        <div class="card">
-            <h1>Rabattrechnung</h1>
-            <p>Hierbei handelt es sich um einen <strong>verminderten Grundwert</strong>.</p>
-            <div class="example">
-                <strong>Beispiel:</strong> Ein Preis von 3,26 € soll um 8% reduziert werden.<br>
-                Der neue Wert entspricht 92% (100% - 8%).
-            </div>
-            <span class="formula">Rechnung: 3,26 € × 0,92 = 3,00 €</span>
-        </div>
-    </section>
-</main>
+    <div class="column">
+        <div class="column-title">Prozent</div>
+        <a href="prozentrechnung.html" class="card">Erklärung</a>
+        <a href="prozent_uebung.html" class="card">Übung</a>
+    </div>
 
-<script>
-    function showSection(sectionId) {
-        // Alle Sektionen verstecken
-        const sections = document.querySelectorAll('.content-section');
-        sections.forEach(s => s.classList.remove('active'));
+    <div class="column">
+        <div class="column-title">Zinsen</div>
+        <a href="zinsen_erklaerung.html" class="card">Erklärung</a>
+        <a href="zinsen_uebung.html" class="card">Übung</a>
+    </div>
 
-        // Alle Buttons zurücksetzen
-        const navItems = document.querySelectorAll('nav li');
-        navItems.forEach(item => item.classList.remove('active'));
+    <div class="column">
+        <div class="column-title">Kalkulation</div>
+        <a href="kalkulation_erklaerung.html" class="card">Erklärung</a>
+        <a href="kalkulation_uebung.html" class="card">Übung</a>
+    </div>
 
-        // Gewählte Sektion und Button aktivieren
-        document.getElementById(sectionId).classList.add('active');
-        document.getElementById('btn-' + sectionId).classList.add('active');
-    }
-</script>
+</div>
 
 </body>
 </html>
