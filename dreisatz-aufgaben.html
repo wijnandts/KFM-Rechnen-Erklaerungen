@@ -30,6 +30,35 @@
 
         .container { width: 100%; max-width: 500px; }
 
+        /* Zurück-Button Styling */
+        .header-nav {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .btn-back {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            box-shadow: 0 4px 0 #e5e7eb;
+            transition: all 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-back:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #e5e7eb;
+        }
+
         .card {
             background: var(--card);
             border-radius: 24px;
@@ -179,6 +208,10 @@
 <body>
 
 <div class="container">
+    <div class="header-nav">
+        <a href="index.html" class="btn-back">← Zurück</a>
+    </div>
+
     <div class="card">
         <h1>Dreisatz-Master</h1>
         
@@ -259,18 +292,15 @@
         const list = scenarios[currentMode];
         const sc = list[Math.floor(Math.random() * list.length)];
         
-        // Zufallswerte passend zum Szenario
         let a = rand(10, 60), b = rand(2, 40), c = rand(100, 1000), d = rand(5, 50), e = rand(5, 30), f = rand(5, 20), g = rand(50, 200), h = rand(1, 5), i = rand(1, 3);
         
-        // Spezialkorrektur für Kaffee-Röstverlust (Aufgabe 4)
         if (sc.s.includes("Röstverlust")) { a = 50; b = 10; c = 160; }
         
         let text = sc.s.replace('{a}', a).replace('{b}', b).replace('{c}', c).replace('{d}', d).replace('{e}', e).replace('{f}', f).replace('{g}', g).replace('{h}', h).replace('{i}', i);
         document.getElementById('quest').innerText = text;
         
-        // Berechnungsschnittstelle für verschiedene Parameteranzahlen
         if (sc.s.includes("Nahrungsmittel")) {
-             targetValue = sc.f(56, 4, 81, 200, 100, 3, 150); // Beispielwerte nah am Buch
+             targetValue = sc.f(56, 4, 81, 200, 100, 3, 150);
              document.getElementById('quest').innerText = "Ein Vorrat reicht für 56 Tage, wenn täglich 4 Personen 81 Portionen zu je 200g erhalten. Wie viele Tage reicht er für 100 Personen bei täglich 3 Portionen zu je 150g?";
         } else {
              targetValue = (currentMode === 'mix' || sc.s.includes("Stoff") || sc.s.includes("Inventur")) ? sc.f(a,b,c,d,e,f,g,h,i) : sc.f(a,b,c);
