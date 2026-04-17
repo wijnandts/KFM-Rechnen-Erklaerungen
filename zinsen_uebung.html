@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Übung: Zinsrechnung</title>
+    <style>
+        :root { --bg: #ecf0f1; --main: #00b894; --dark: #00947a; --light: #55efc4; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 40px; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 900px; margin: auto; }
+        h1 { color: var(--dark); border-bottom: 4px solid var(--main); padding-bottom: 10px; }
+        .question-box { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 6px solid var(--main); }
+        input { padding: 10px; border: 2px solid #ddd; border-radius: 8px; width: 120px; font-size: 1rem; }
+        .btn-check { background: var(--main); color: white; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 0 var(--dark); transition: 0.1s; }
+        .btn-check:active { transform: translateY(4px); box-shadow: 0 0 0 transparent; }
+        .feedback { font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Übung: Zinsrechnung</h1>
+        <div id="quiz"></div>
+        <button class="btn-check" onclick="check()">Ergebnisse prüfen</button>
+        <a href="index.html" style="margin-left:20px; color: var(--dark);">Zurück</a>
+    </div>
+
+    <script>
+        const questions = [];
+        for(let i=1; i<=30; i++) {
+            let kapital = i * 1000;
+            let zins = (i % 5) + 2;
+            let tage = 30 * (i % 12 + 1);
+            let erg = (kapital * zins * tage) / 36000;
+            questions.push({
+                q: `Berechne die Zinsen: Kapital ${kapital} €, Zinssatz ${zins} %, Laufzeit ${tage} Tage.`,
+                a: erg.toFixed(2)
+            });
+        }
+        const selection = questions.sort(() => 0.5 - Math.random()).slice(0, 5);
+        const container = document.getElementById('quiz');
+        selection.forEach((item, i) => {
+            container.innerHTML += `<div class="question-box"><p>${item.q}</p><input type="number" step="0.01" id="ans${i}"> €<div id="res${i}" class="feedback"></div></div>`;
+        });
+        function check() {
+            selection.forEach((item, i) => {
+                const val = document.getElementById(`ans${i}`).value;
+                const res = document.getElementById(`res${i}`);
+                if(Math.abs(val - item.a) < 0.1) { res.innerHTML = "✅ Richtig!"; res.style.color = "green"; }
+                else { res.innerHTML = "❌ Falsch. Lösung: " + item.a; res.style.color = "red"; }
+            });
+        }
+    </script>
+</body>
+</html>
