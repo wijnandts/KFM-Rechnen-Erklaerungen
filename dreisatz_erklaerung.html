@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fachwissen: Dreisatzrechnung</title>
+    <style>
+        :root {
+            --bg: #ecf0f1;
+            --text: #2c3e50;
+            --dreisatz-main: #0984e3; /* Blau aus Dashboard */
+            --dreisatz-light: #82ccdd;
+            --dreisatz-dark: #0a3d62;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 5px solid var(--dreisatz-main);
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+        }
+
+        h1 { font-size: 2.5rem; margin: 0; color: var(--dreisatz-dark); }
+        h2 { font-size: 1.8rem; color: var(--dreisatz-main); margin-top: 40px; border-left: 5px solid var(--dreisatz-main); padding-left: 15px; }
+        
+        .back-link { text-decoration: none; color: var(--text); font-weight: bold; display: block; margin-bottom: 20px; }
+        .back-link:hover { color: var(--dreisatz-main); }
+
+        .def-box {
+            background: var(--dreisatz-light);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 0 #60a3bc;
+            margin: 20px 0;
+            color: var(--dreisatz-dark);
+            font-weight: 500;
+        }
+
+        .logic-box {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .rule-box {
+            background: #e1f5fe;
+            border-left: 5px solid var(--dreisatz-main);
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .calculation-steps {
+            background: white;
+            padding: 20px;
+            border: 1px dashed var(--dreisatz-main);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .formula-box {
+            background: var(--dreisatz-dark);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 4px 0 #041e31;
+        }
+
+        .highlight { color: var(--dreisatz-dark); font-weight: bold; }
+        
+        .grid-ratio {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 800px) { .grid-ratio { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">← Zurück zum Dashboard</a>
+    
+    <header>
+        <h1>Dreisatzrechnung</h1>
+        <p>Verhältnismäßigkeiten berechnen im kaufmännischen Alltag.</p>
+    </header>
+
+    <div class="def-box">
+        <strong>Definition:</strong> Der Dreisatz ist ein mathematisches Verfahren, um aus drei bekannten Größen eine vierte, unbekannte Größe zu berechnen. Er basiert auf dem Prinzip der Proportionalität.
+    </div>
+
+    <h2>1. Einfacher Dreisatz</h2>
+    <div class="grid-ratio">
+        <div class="logic-box">
+            <h3>Gerades Verhältnis</h3>
+            <p><em>"Je mehr, desto mehr"</em> oder <em>"Je weniger, desto weniger"</em>.</p>
+            <div class="rule-box">Beispiel: 700 m² Verpackungsmaterial kosten einen bestimmten Betrag. Wie viel kosten 1.600 m²?</div>
+            <div class="calculation-steps">
+                700 m² ≙ Grundwert<br>
+                1.600 m² ≙ x
+            </div>
+            <p>Rechnung: <span class="highlight">(Wert über x * neue Menge) / alte Menge</span></p>
+        </div>
+
+        <div class="logic-box">
+            <h3>Ungerades Verhältnis</h3>
+            <p><em>"Je mehr, desto weniger"</em> oder <em>"Je weniger, desto mehr"</em>.</p>
+            <div class="rule-box">Beispiel: 4 Rollen Kassenpapier reichen 112 Tage. Wie lange reichen sie, wenn der Bedarf um die Hälfte steigt (6 Rollen)?</div>
+            <div class="calculation-steps">
+                4 Rollen ≙ 112 Tage<br>
+                6 Rollen ≙ x Tage
+            </div>
+            <p>Rechnung: <span class="highlight">(Alter Wert * alte Menge) / neue Menge</span></p>
+        </div>
+    </div>
+
+    <h2>2. Der Lösungssatz (Bruchsatz)</h2>
+    <p>Um Fehler zu vermeiden, wird der Dreisatz oft als Bruchsatz dargestellt:</p>
+    <div class="logic-box">
+        <ul style="list-style-type: square;">
+            <li>Die gesuchte Größe (x) steht immer rechts unten.</li>
+            <li>Die Zahl über dem x kommt immer auf den <strong>Bruchstrich</strong>.</li>
+            <li>Beim <strong>geraden Verhältnis</strong> kommt die Zahl links oben unter den Bruchstrich.</li>
+            <li>Beim <strong>ungeraden Verhältnis</strong> bleibt die Zahl links oben auf dem Bruchstrich.</li>
+        </ul>
+    </div>
+
+    <h2>3. Zusammengesetzter Dreisatz</h2>
+    <p>Hier sind fünf oder mehr Größen bekannt. Er besteht aus mehreren einfachen Dreisätzen, die gleichzeitig gelöst werden.</p>
+    
+    <div class="logic-box">
+        <p><span class="highlight">Beispiel aus der Praxis:</span><br>
+        15 Angestellte benötigen für 3.400 Artikel insgesamt 7 Tage.<br>
+        Wie viele Tage benötigen 13 Angestellte für 3.900 Artikel?</p>
+        
+        <div class="calculation-steps">
+            x = (7 Tage * 15 Angestellte * 3.900 Artikel) / (13 Angestellte * 3.400 Artikel)
+        </div>
+
+        <div class="formula-box">
+            Ergebnis: 9,3 Tage
+        </div>
+        
+        <p style="margin-top: 15px; font-size: 0.9rem;"><em>Tipp: Prüfe bei jedem Faktor einzeln, ob er das Ergebnis vergrößert (gerade) oder verkleinert (ungerade).</em></p>
+    </div>
+
+</div>
+
+</body>
+</html>
