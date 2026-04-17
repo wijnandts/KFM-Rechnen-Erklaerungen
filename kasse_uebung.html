@@ -4,42 +4,46 @@
     <meta charset="UTF-8">
     <title>Übung: Kassenabrechnung</title>
     <style>
-        :root { --main: #f1c40f; --dark: #9a7d0a; }
-        body { font-family: sans-serif; background: #ecf0f1; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); max-width: 800px; margin: auto; }
-        .question { margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--main); background: #f9f9f9; }
-        input { padding: 8px; width: 120px; }
-        button { background: var(--dark); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        :root { --bg: #ecf0f1; --main: #f1c40f; --dark: #9a7d0a; --light: #ffeaa7; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 40px; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 900px; margin: auto; }
+        h1 { color: var(--dark); border-bottom: 4px solid var(--main); padding-bottom: 10px; }
+        .question-box { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 6px solid var(--main); }
+        input { padding: 10px; border: 2px solid #ddd; border-radius: 8px; width: 120px; }
+        .btn-check { background: var(--main); color: #2c3e50; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; box-shadow: 0 5px 0 var(--dark); cursor: pointer; }
+        .btn-check:active { transform: translateY(4px); box-shadow: 0 0 0 transparent; }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Übung: Kassenabrechnung</h1>
-        <p>Berechne die Bestände und Differenzen.</p>
-        <div id="quiz-container"></div>
-        <button onclick="checkAnswers()">Prüfen</button>
+        <div id="quiz"></div>
+        <button class="btn-check" onclick="check()">Prüfen</button>
+        <a href="index.html" style="margin-left:20px; color: var(--dark);">Zurück</a>
     </div>
 
     <script>
-        const pool = [
-            { q: "Sollbestand: 5.692,45€ (Barverkäufe) + 351,00€ (Wechselgeld) - 31,60€ (Ausgabe). Wie hoch ist der Soll-Bestand?", a: 6011.85 },
-            { q: "Kassenbestand Abend: 11.995,20€. Wechselgeld Morgen: 321,30€. Privateinnahme: 50€. Geschäftsausgabe: 740€. Kartenzahlung: 4.046€. Bankeinzahlung: 668€. Wie hoch waren die Barverkäufe?", a: 17077.90 }
-        ];
-
-        // Hier können ebenfalls durch Variation der Werte 30 Varianten erstellt werden.
-        const selected = pool; // Für Kasse starten wir mit den Originalbeispielen.
-        const container = document.getElementById('quiz-container');
-
-        selected.forEach((item, index) => {
-            container.innerHTML += `<div class="question"><p>${item.q}</p><input type="number" step="0.01" id="q${index}"> <div id="f${index}"></div></div>`;
+        const questions = [];
+        for(let i=1; i<=30; i++) {
+            let einnahme = 1000 + (i * 123.45);
+            let ausgabe = 20 + i;
+            let soll = einnahme - ausgabe;
+            questions.push({
+                q: `Tageseinnahmen: ${einnahme.toFixed(2)} €. Ausgaben: ${ausgabe.toFixed(2)} €. Berechne den Kassen-Sollbestand.`,
+                a: soll.toFixed(2)
+            });
+        }
+        const selection = questions.sort(() => 0.5 - Math.random()).slice(0, 5);
+        const container = document.getElementById('quiz');
+        selection.forEach((item, i) => {
+            container.innerHTML += `<div class="question-box"><p>${item.q}</p><input type="number" step="0.01" id="ans${i}"> €<div id="res${i}"></div></div>`;
         });
-
-        function checkAnswers() {
-            selected.forEach((item, index) => {
-                const val = parseFloat(document.getElementById(`q${index}`).value);
-                const f = document.getElementById(`f${index}`);
-                if(Math.abs(val - item.a) < 0.05) { f.innerHTML = "✅"; f.style.color="green"; }
-                else { f.innerHTML = "❌ Korrekt: " + item.a; f.style.color="red"; }
+        function check() {
+            selection.forEach((item, i) => {
+                const val = document.getElementById(`ans${i}`).value;
+                const res = document.getElementById(`res${i}`);
+                if(Math.abs(val - item.a) < 0.05) { res.innerHTML = "✅ Stimmt!"; res.style.color = "green"; }
+                else { res.innerHTML = "❌ Falsch. Lösung: " + item.a; res.style.color = "red"; }
             });
         }
     </script>
