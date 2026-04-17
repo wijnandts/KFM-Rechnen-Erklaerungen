@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Übung: Durchschnitt</title>
+    <style>
+        :root { --main: #4834d4; --light: #a29bfe; }
+        body { font-family: sans-serif; background: #ecf0f1; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); max-width: 800px; margin: auto; }
+        .question { margin-bottom: 20px; padding: 15px; border-left: 5px solid var(--main); background: #f9f9f9; }
+        input { padding: 8px; width: 120px; }
+        button { background: var(--main); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Übung: Durchschnitt / Mittelwerte</h1>
+        <p>Berechne die Mittelwerte. Achte auf Gewichtung!</p>
+        <div id="quiz-container"></div>
+        <button onclick="checkAnswers()">Prüfen</button>
+        <button onclick="location.reload()" style="background:#7f8c8d">Neue Fragen</button>
+    </div>
+
+    <script>
+        const pool = [
+            { q: "Tagesumsätze: Mo 2.430€, Mi 3.720€, Do 2.946€, Fr 3.056€. Wie hoch ist der Durchschnittsumsatz pro Tag?", a: 3038.00 },
+            { q: "Verkaufte Jeans: 56x 45€, 108x 57€, 185x 38€, 39x 49€. Durchschnittlicher Verkaufspreis pro Jeans?", a: 45.40 },
+            { q: "Lagerbestand: Anfang 6000, Ende 4000. Durchschnittlicher Bestand?", a: 5000 },
+            { q: "Quartalsumsätze: Q1 282.350, Q2 261.253, Q3 256.612, Q4 314.973. Durchschnitt pro Monat?", a: 92932.33 },
+            { q: "Keksmischung: 8kg à 2.30€, 12kg à 0.90€, 5kg à 3.05€, 6kg à 0.42€. Preis pro kg Mischung?", a: 1.50 }
+        ];
+
+        // 30 Aufgaben durch Randomisierung
+        for(let i=0; i<25; i++) {
+            pool.push({ q: `Einfacher Durchschnitt von: ${i*10}€, ${i*20}€ und ${i*30}€?`, a: (i*20).toFixed(2) });
+        }
+
+        const selected = pool.sort(() => 0.5 - Math.random()).slice(0, 5);
+        const container = document.getElementById('quiz-container');
+
+        selected.forEach((item, index) => {
+            container.innerHTML += `<div class="question"><p>${item.q}</p><input type="number" step="0.01" id="q${index}"> <div id="f${index}"></div></div>`;
+        });
+
+        function checkAnswers() {
+            selected.forEach((item, index) => {
+                const val = parseFloat(document.getElementById(`q${index}`).value);
+                const f = document.getElementById(`f${index}`);
+                if(Math.abs(val - item.a) < 0.5) { f.innerHTML = "✅"; f.style.color="green"; }
+                else { f.innerHTML = "❌ Korrekt: " + item.a; f.style.color="red"; }
+            });
+        }
+    </script>
+</body>
+</html>
