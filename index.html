@@ -3,119 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaufmännisches Rechnen - Auswahl</title>
+    <title>Dashboard - Kaufmännisches Rechnen</title>
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-dark: #1a1a1a;
-            --accent-orange: #e67e22;
-            --border-color: #333333;
-            --hover-bg: #f9f9f9;
+            --bg-body: #f4f7f9;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --card-bg: #ffffff;
+            
+            /* Themen-Farben */
+            --color-dreisatz: #0984e3;      /* Blau */
+            --color-durchschnitt: #6c5ce7;  /* Lila */
+            --color-prozent: #e17055;      /* Koralle/Orange */
+            --color-zinsen: #00b894;       /* Türkis */
+            --color-kalkulation: #d63031;  /* Rot */
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--bg-body);
             color: var(--text-dark);
             margin: 0;
-            padding: 50px;
+            padding: 40px;
         }
 
-        /* Titelzeile */
+        /* Header & Utility Icons */
         header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
+            align-items: flex-start;
+            max-width: 1300px;
             margin: 0 auto 60px auto;
         }
 
         h1 {
-            font-size: 2.8rem;
-            font-weight: 400;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d3436;
             margin: 0;
-            letter-spacing: 1px;
         }
 
         .header-icons {
             display: flex;
-            gap: 30px;
+            gap: 20px;
         }
 
-        .icon-unit {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #555;
-        }
-
-        .square-icon {
-            width: 45px;
-            height: 45px;
-            border: 1.5px solid var(--border-color);
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        /* Grid für die 5 Spalten */
-        .selection-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .topic-column {
+        .icon-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: color 0.2s;
         }
 
-        .topic-title {
+        .icon-btn:hover { color: var(--text-dark); }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #dfe6e9;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.5rem;
-            margin-bottom: 25px;
-            font-weight: 500;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        /* Die Auswahlfelder (Kästchen aus der Skizze) */
-        .choice-box {
-            width: 100%;
-            height: 100px;
-            border: 2px solid var(--border-color);
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .column-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            padding-bottom: 10px;
             margin-bottom: 10px;
+            border-bottom: 3px solid #dfe6e9;
+        }
+
+        /* Card Styling */
+        .choice-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             color: var(--text-dark);
+            font-weight: 600;
             font-size: 1.1rem;
-            transition: all 0.2s ease;
-            background-color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-bottom: 5px solid transparent;
         }
 
-        .choice-box:hover {
-            background-color: var(--hover-bg);
-            border-color: var(--accent-orange);
-            color: var(--accent-orange);
-            transform: scale(1.02);
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+        .choice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
-        .label-text {
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-            color: #666;
-            text-align: center;
-        }
+        /* Themen-spezifische Akzente */
+        .col-dreisatz .column-header { border-color: var(--color-dreisatz); color: var(--color-dreisatz); }
+        .col-dreisatz .choice-card:hover { border-bottom-color: var(--color-dreisatz); color: var(--color-dreisatz); }
 
-        /* Responsive Anpassungen */
-        @media (max-width: 900px) {
-            .selection-grid { grid-template-columns: repeat(2, 1fr); }
-            header { flex-direction: column; gap: 20px; text-align: center; }
-        }
+        .col-durchschnitt .column-header { border-color: var(--color-durchschnitt); color: var(--color-durchschnitt); }
+        .col-durchschnitt .choice-card:hover { border-bottom-color: var(--color-durchschnitt); color: var(--color-durchschnitt); }
+
+        .col-prozent .column-header { border-color: var(--color-prozent); color: var(--color-prozent); }
+        .col-prozent .choice-card:hover { border-bottom-color: var(--color-prozent); color: var(--color-prozent); }
+
+        .col-zinsen .column-header { border-color: var(--color-zinsen); color: var(--color-zinsen); }
+        .col-zinsen .choice-card:hover { border-bottom-color: var(--color-zinsen); color: var(--color-zinsen); }
+
+        .col-kalkulation .column-header { border-color: var(--color-kalkulation); color: var(--color-kalkulation); }
+        .col-kalkulation .choice-card:hover { border-bottom-color: var(--color-kalkulation); color: var(--color-kalkulation); }
+
+        /* Responsive */
+        @media (max-width: 1024px) { .dashboard { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .dashboard { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -123,59 +145,47 @@
 <header>
     <h1>Kaufmännisches Rechnen</h1>
     <div class="header-icons">
-        <div class="icon-unit">
-            <div class="square-icon">✉</div>
-            Kontakt
-        </div>
-        <div class="icon-unit">
-            <div class="square-icon">▦</div>
-            Rechner
-        </div>
+        <a href="#" class="icon-btn">
+            <div class="square">✉</div>
+            <span>Kontakt</span>
+        </a>
+        <a href="#" class="icon-btn">
+            <div class="square">▦</div>
+            <span>Rechner</span>
+        </a>
     </div>
 </header>
 
-<div class="selection-grid">
-    
-    <div class="topic-column">
-        <div class="topic-title">Dreisatz</div>
-        <a href="dreisatz_erklaerung.html" class="choice-box"></a>
-        <div class="label-text">Erklärung</div>
-        <a href="dreisatz_uebung.html" class="choice-box"></a>
-        <div class="label-text">Übung</div>
+<div class="dashboard">
+    <div class="column col-dreisatz">
+        <div class="column-header">Dreisatz</div>
+        <a href="dreisatz_erklaerung.html" class="choice-card">Erklärung</a>
+        <a href="dreisatz_uebung.html" class="choice-card">Übung</a>
     </div>
 
-    <div class="topic-column">
-        <div class="topic-title">Durchschnitt</div>
-        <a href="durchschnitt_erklaerung.html" class="choice-box"></a>
-        <div class="label-text">Erklärung</div>
-        <a href="durchschnitt_uebung.html" class="choice-box"></a>
-        <div class="label-text">Übung</div>
+    <div class="column col-durchschnitt">
+        <div class="column-header">Durchschnitt</div>
+        <a href="durchschnitt_erklaerung.html" class="choice-card">Erklärung</a>
+        <a href="durchschnitt_uebung.html" class="choice-card">Übung</a>
     </div>
 
-    <div class="topic-column">
-        <div class="topic-title">Prozent</div>
-        <a href="prozentrechnung.html" class="choice-box"></a>
-        <div class="label-text">Erklärung</div>
-        <a href="prozent_uebung.html" class="choice-box"></a>
-        <div class="label-text">Übung</div>
+    <div class="column col-prozent">
+        <div class="column-header">Prozent</div>
+        <a href="prozentrechnung.html" class="choice-card">Erklärung</a>
+        <a href="prozent_uebung.html" class="choice-card">Übung</a>
     </div>
 
-    <div class="topic-column">
-        <div class="topic-title">Zinsen</div>
-        <a href="zinsen_erklaerung.html" class="choice-box"></a>
-        <div class="label-text">Erklärung</div>
-        <a href="zinsen_uebung.html" class="choice-box"></a>
-        <div class="label-text">Übung</div>
+    <div class="column col-zinsen">
+        <div class="column-header">Zinsen</div>
+        <a href="zinsen_erklaerung.html" class="choice-card">Erklärung</a>
+        <a href="zinsen_uebung.html" class="choice-card">Übung</a>
     </div>
 
-    <div class="topic-column">
-        <div class="topic-title">Kalkulation</div>
-        <a href="kalkulation_erklaerung.html" class="choice-box"></a>
-        <div class="label-text">Erklärung</div>
-        <a href="kalkulation_uebung.html" class="choice-box"></a>
-        <div class="label-text">Übung</div>
+    <div class="column col-kalkulation">
+        <div class="column-header">Kalkulation</div>
+        <a href="kalkulation_erklaerung.html" class="choice-card">Erklärung</a>
+        <a href="kalkulation_uebung.html" class="choice-card">Übung</a>
     </div>
-
 </div>
 
 </body>
