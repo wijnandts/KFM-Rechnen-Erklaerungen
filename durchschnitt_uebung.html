@@ -142,6 +142,7 @@
             border-radius: 5px;
             margin-bottom: 15px;
             overflow: hidden;
+            min-height: 1.5rem;
         }
 
         .calc-grid {
@@ -160,7 +161,7 @@
             font-weight: bold;
         }
 
-        .calc-btn.op { background: #4834d4; }
+        .calc-btn.op { background: var(--main); }
         .calc-btn.clear { background: #e17055; }
         .calc-btn.equal { background: #27ae60; grid-column: span 3; }
 
@@ -194,7 +195,7 @@
                 <div id="feedback"></div>
 
                 <button class="btn btn-primary" onclick="checkCurrentAnswer()">Eingabe prüfen</button>
-                <button class="btn btn-secondary" onclick="nextQuestion()">Nächste Aufgabe</button>
+                <button class="btn btn-secondary" onclick="generateNewQuestion()">Nächste Aufgabe</button>
             </div>
         </div>
 
@@ -228,19 +229,40 @@
     </div>
 
     <script>
-        const pool = [
-            { q: "Tagesumsätze: Mo 2.430€, Mi 3.720€, Do 2.946€, Fr 3.056€. Wie hoch ist der Durchschnittsumsatz pro Tag?", a: 3038.00 },
-            { q: "Verkaufte Jeans: 56x 45€, 108x 57€, 185x 38€, 39x 49€. Durchschnittlicher Verkaufspreis pro Jeans?", a: 45.40 },
-            { q: "Lagerbestand: Anfang 6000, Ende 4000. Durchschnittlicher Bestand?", a: 5000 },
-            { q: "Quartalsumsätze: Q1 282.350, Q2 261.253, Q3 256.612, Q4 314.973. Durchschnitt pro Monat?", a: 92932.33 },
-            { q: "Keksmischung: 8kg à 2.30€, 12kg à 0.90€, 5kg à 3.05€, 6kg à 0.42€. Preis pro kg Mischung?", a: 1.50 }
-        ];
-
         let currentTask;
 
-        function nextQuestion() {
-            const randomIndex = Math.floor(Math.random() * pool.length);
-            currentTask = pool[randomIndex];
+        function generateNewQuestion() {
+            // Logik: Zufällige Entscheidung zwischen gewichtetem und einfachem Durchschnitt
+            // Alle Werte sind strikt > 1
+            const type = Math.random() > 0.5 ? 'simple' : 'weighted';
+            
+            if (type === 'simple') {
+                const v1 = (Math.random() * 500 + 10).toFixed(2);
+                const v2 = (Math.random() * 500 + 10).toFixed(2);
+                const v3 = (Math.random() * 500 + 10).toFixed(2);
+                const avg = (parseFloat(v1) + parseFloat(v2) + parseFloat(v3)) / 3;
+                
+                currentTask = {
+                    q: `Berechne den Durchschnitt der folgenden Beträge: ${v1}€, ${v2}€ und ${v3}€?`,
+                    a: avg
+                };
+            } else {
+                // Gewichteter Durchschnitt (z.B. Mischung)
+                const menge1 = Math.floor(Math.random() * 10 + 2); // 2-11 kg
+                const preis1 = (Math.random() * 5 + 2).toFixed(2); // 2.00-7.00 €
+                const menge2 = Math.floor(Math.random() * 10 + 2);
+                const preis2 = (Math.random() * 3 + 1.1).toFixed(2); // 1.10-4.10 €
+                
+                const gesamtMenge = menge1 + menge2;
+                const gesamtPreis = (menge1 * preis1) + (menge2 * preis2);
+                const avg = gesamtPreis / gesamtMenge;
+
+                currentTask = {
+                    q: `Eine Mischung besteht aus ${menge1}kg zu ${preis1}€/kg und ${menge2}kg zu ${preis2}€/kg. Wie hoch ist der Durchschnittspreis pro kg?`,
+                    a: avg
+                };
+            }
+
             document.getElementById('question-text').innerText = currentTask.q;
             document.getElementById('user-answer').value = '';
             document.getElementById('feedback').innerHTML = '';
@@ -254,12 +276,13 @@
 
             if(isNaN(userVal)) return;
 
-            if(Math.abs(userVal - currentTask.a) < 0.02) {
+            // Toleranz für Rundungen auf 2 Stellen
+            if(Math.abs(userVal - currentTask.a) < 0.015) {
                 feedback.innerHTML = "✅ Richtig!";
                 feedback.style.color = "green";
                 input.style.borderColor = "green";
             } else {
-                feedback.innerHTML = "❌ Falsch. Korrekt: " + currentTask.a.toFixed(2);
+                feedback.innerHTML = "❌ Falsch. Korrekt wäre: " + currentTask.a.toFixed(2);
                 feedback.style.color = "red";
                 input.style.borderColor = "red";
             }
@@ -275,7 +298,9 @@
         }
         function calculateResult() {
             try {
-                calcExpression = eval(calcExpression).toString();
+                // Einfache Evaluierung für den internen Rechner
+                let result = eval(calcExpression);
+                calcExpression = Number.isInteger(result) ? result.toString() : result.toFixed(4);
                 updateDisplay();
             } catch {
                 calcExpression = "Error";
@@ -285,7 +310,7 @@
         }
 
         // Initialisierung
-        nextQuestion();
+        generateNewQuestion();
     </script>
 </body>
 </html>
