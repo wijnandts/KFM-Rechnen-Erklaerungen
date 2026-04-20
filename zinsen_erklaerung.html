@@ -100,12 +100,26 @@
     
     <header>
         <h1>Kaufmännische Zinsrechnung</h1>
-        <p>Spezielle Rechenverfahren für Zinszahl, Zinsteiler sowie Kapitalvariationen und Effektivzinsvergleiche.</p>
+        <p>Umfassende Erläuterung der Zinstage-Regelung, Zinsformeln sowie spezialisierter Rechenverfahren.</p>
     </header>
 
-    <h2>1. Zinszahl und Zinsteiler (Zinsdivisor)</h2>
+    <h2>1. Grundlagen und Zinstage-Regelung</h2>
     <div class="detail-section">
-        <p>Um bei häufig wechselnden Kapitalbeträgen (z. B. im Kontokorrentverkehr) Zeit zu sparen, zerlegt man die Zinsformel in zwei konstante Komponenten.</p>
+        <p>In der kaufmännischen Praxis wird die Laufzeit eines Kapitals nach der <strong>30/360-Methode</strong> bestimmt. Hierbei gelten folgende Regeln:</p>
+        <ul>
+            <li><strong>Zinsmonat / Zinsjahr:</strong> Jeder Monat wird mit 30 Tagen, das Jahr mit 360 Tagen gerechnet.</li>
+            <li><strong>Berechnungszeitraum:</strong> Der Tag der Einzahlung (Anfangstag) wird gesetzlich nicht mitverzinst. Der Tag der Rückzahlung (Endtag) wird hingegen voll berechnet.</li>
+        </ul>
+        <div class="important-box">
+            <strong>Beispiel:</strong> Anlage vom 12. Mai bis zum 15. August.<br>
+            Mai: 18 Tage (30 - 12) | Juni: 30 Tage | Juli: 30 Tage | August: 15 Tage<br>
+            <strong>Gesamt: 93 Zinstage (t)</strong>
+        </div>
+    </div>
+
+    <h2>2. Zinszahl und Zinsteiler (Zinsdivisor)</h2>
+    <div class="detail-section">
+        <p>Zur Vereinfachung bei häufigen Kontobewegungen (z.B. Kontokorrent) wird die Zinsformel zerlegt. Dies erlaubt es Ihnen, Zinsen für mehrere Beträge gesammelt zu berechnen.</p>
         
         <div class="formula-grid">
             <div class="formula-card">
@@ -118,49 +132,49 @@
             </div>
         </div>
 
-        <div class="important-box">
-            <strong>Die kombinierte Formel lautet:</strong> Zinsen = Zinszahl / Zinsteiler
+        <div class="important-box" style="text-align: center;">
+            <strong>Zinsen = Zinszahl / Zinsteiler</strong>
         </div>
-        <p>Dies ist besonders nützlich, wenn Sie die Zinsen für mehrere Posten mit dem gleichen Zinssatz berechnen müssen: Sie addieren alle Zinszahlen und teilen die Summe erst am Ende durch den Zinsteiler.</p>
+        <p>Sie addieren hierbei alle Zinszahlen eines Zeitraums und dividieren die Summe erst am Ende durch den konstanten Zinsteiler.</p>
     </div>
 
-    <h2>2. Vermehrtes und vermindertes Kapital</h2>
+    <h2>3. Vermehrtes und vermindertes Kapital</h2>
     <div class="detail-section">
-        <p>Diese Berechnungen nutzen Sie, wenn Sie direkt das Endkapital inklusive (vermehrt) oder exklusive (vermindert) Zinsen ermitteln möchten.</p>
+        <p>Diese Verfahren dienen der direkten Ermittlung des Endbetrags, wenn Zinsen addiert oder subtrahiert werden müssen.</p>
         
-        <h3>A) Vermehrtes Kapital (K<sub>v</sub>)</h3>
-        <p>Das Kapital wird inklusive der Zinsen betrachtet (Grundwert + Zinsen).<br>
-        Formel: K<sub>v</sub> = (K * (100 + p * t / 360)) / 100</p>
+        <h3>A) Vermehrtes Kapital (Grundwert + Zinsen)</h3>
+        <p>Wird angewendet, um das Kapital inklusive der aufgelaufenen Zinsen zu bestimmen.</p>
+        <div class="formula-card">K<sub>v</sub> = (K * (36000 + p * t)) / 36000</div>
         
-        <h3>B) Vermindertes Kapital (K<sub>m</sub>)</h3>
-        <p>Vom Kapital werden die Zinsen abgezogen (Grundwert - Zinsen).<br>
-        Formel: K<sub>m</sub> = (K * (100 - p * t / 360)) / 100</p>
+        <h3>B) Vermindertes Kapital (Grundwert - Zinsen)</h3>
+        <p>Wird angewendet, wenn Zinsen (z.B. ein Diskont) direkt vom Kapital abgezogen werden.</p>
+        <div class="formula-card">K<sub>m</sub> = (K * (36000 - p * t)) / 36000</div>
     </div>
 
-    <h2>3. Effektiver Zinssatz beim Skontovergleich</h2>
+    <h2>4. Effektiver Zinssatz beim Skontovergleich</h2>
     <div class="detail-section">
-        <p>Wenn Sie auf Skonto verzichten, nutzen Sie einen Lieferantenkredit. Die Kosten dieses Kredits lassen sich in einen jährlichen Zinssatz (p<sub>eff</sub>) umrechnen, um sie mit Bankkrediten zu vergleichen.</p>
+        <p>Der Verzicht auf Skonto entspricht der Inanspruchnahme eines Lieferantenkredits. Um die Kosten dieses Kredits mit einem Bankkredit vergleichen zu können, berechnen Sie den effektiven Jahreszinssatz.</p>
         
         <div class="formula-card">
             p<sub>eff</sub> = (Skontosatz * 360) / (Zahlungsziel - Skontofrist)
         </div>
 
-        <div class="important-box">
-            <strong>Beispiel:</strong> 2 % Skonto bei Zahlung innerhalb 10 Tagen, sonst 30 Tage netto.<br>
-            t = 30 Tage - 10 Tage = 20 Tage.<br>
-            p<sub>eff</sub> = (2 * 360) / 20 = <span class="highlight-text">36 % p.a.</span>
+        <div class="example-box">
+            <strong>Beispiel:</strong> 3 % Skonto bei Zahlung innerhalb 10 Tagen, sonst 40 Tage netto.<br>
+            t = 40 - 10 = 30 Tage.<br>
+            p<sub>eff</sub> = (3 * 360) / 30 = <span class="highlight-text">36 % p.a.</span>
         </div>
-        <p>Da 36 % weit über den üblichen Kontokorrentzinsen der Banken liegen, ist es für Sie fast immer vorteilhaft, Skonto zu ziehen.</p>
+        <p>Da 36 % weit über den Zinsen eines Kontokorrentkredits liegen, sollten Sie Skonto grundsätzlich in Anspruch nehmen.</p>
     </div>
 
-    <h2>4. Zusammenfassung der Zinstage-Regelung</h2>
+    <h2>5. Formelumstellungen</h2>
     <div class="detail-section">
-        <ul>
-            <li><strong>Anfangstag:</strong> Wird nicht mitgezählt (zinsfrei).</li>
-            <li><strong>Endtag:</strong> Wird voll mitgezählt.</li>
-            <li><strong>Monate:</strong> Werden kaufmännisch mit 30 Tagen berechnet.</li>
-            <li><strong>Jahr:</strong> Wird mit 360 Tagen berechnet.</li>
-        </ul>
+        <p>Basierend auf der Tageszinsformel [Z = (K * p * t) / 36000] ergeben sich folgende Umstellungen:</p>
+        <div class="formula-grid">
+            <div class="grid-item" style="background:#f8fafc; padding:10px; border-radius:8px;"><strong>Kapital (K):</strong><br>(Z * 36000) / (p * t)</div>
+            <div class="grid-item" style="background:#f8fafc; padding:10px; border-radius:8px;"><strong>Zinssatz (p):</strong><br>(Z * 36000) / (K * t)</div>
+            <div class="grid-item" style="background:#f8fafc; padding:10px; border-radius:8px;"><strong>Zeit (t):</strong><br>(Z * 36000) / (K * p)</div>
+        </div>
     </div>
 </div>
 
