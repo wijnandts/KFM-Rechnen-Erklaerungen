@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Übung: Prozentrechnung</title>
+    <title>Training: Prozentrechnung</title>
     <style>
         :root {
             --main: #e17055;
@@ -21,18 +21,16 @@
             margin: 0;
         }
 
-        /* Hauptcontainer basierend auf Sketch */
         .card {
             background: white;
             border: 2px solid var(--border-dark);
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* Header */
         .header-row {
             display: flex;
             align-items: center;
@@ -55,23 +53,30 @@
             text-transform: uppercase;
         }
 
-        /* Themen & Stufen */
+        /* Themen-Navigation basierend auf Sketch */
         .grid-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
         .topic-button {
             border: 2px solid var(--main);
             border-radius: 12px;
-            padding: 10px 22px;
+            padding: 10px 15px;
             background: white;
             cursor: pointer;
             font-weight: bold;
             color: var(--main);
+            font-size: 0.85rem;
             transition: all 0.2s;
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .topic-button.active {
@@ -79,27 +84,13 @@
             color: white;
         }
 
-        .level-button {
-            border: 2px solid var(--border-dark);
-            border-radius: 10px;
-            padding: 8px 25px;
-            background: white;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .level-button.active {
-            background: var(--border-dark);
-            color: white;
-        }
-
-        /* Aufgaben-Bereich */
+        /* Aufgaben-Box */
         .task-box {
             border: 2px solid var(--border-dark);
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 20px;
-            min-height: 200px;
+            min-height: 180px;
             background: #fdfdfd;
         }
 
@@ -111,7 +102,7 @@
             color: var(--main);
         }
 
-        /* Lösungs-Eingabe */
+        /* Lösungseingabe */
         .input-area {
             border: 2px solid var(--border-dark);
             border-radius: 12px;
@@ -137,7 +128,7 @@
             outline: none;
         }
 
-        /* Untere Buttons */
+        /* Footer Buttons (Rückmeldung & Nächste) */
         .footer-actions {
             display: flex;
             gap: 20px;
@@ -153,18 +144,16 @@
             cursor: pointer;
             background: white;
             text-transform: uppercase;
-            transition: transform 0.1s;
+            transition: background 0.2s;
         }
 
-        .btn-action:active { transform: scale(0.98); }
-
         .btn-feedback { border-color: var(--main); color: var(--main); }
+        .btn-feedback:hover { background: #fff5f2; }
         .btn-next { background: var(--bg); }
+        .btn-next:hover { background: #dfe6e9; }
 
-        .feedback-msg { font-size: 1.1rem; }
-        .correct { color: green; font-weight: bold; }
-        .wrong { color: #e17055; font-weight: bold; }
-
+        .correct { color: #27ae60; font-weight: bold; }
+        .wrong { color: var(--main); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -172,80 +161,101 @@
     <div class="card">
         <div class="header-row">
             <a href="#" class="back-btn">← zurück zum Dashboard</a>
-            <div class="main-title">Hauptthema</div>
+            <div class="main-title">Prozentrechnung</div>
         </div>
 
-        <div class="grid-row">
-            <div class="topic-button active">Thema 1</div>
-            <div class="topic-button">Thema 2</div>
-            <div class="topic-button">Thema 3</div>
-            <div class="topic-button">Thema 4</div>
-        </div>
-
-        <div class="grid-row" style="margin-bottom: 30px; border-top: 1px solid #ddd; padding-top: 20px;">
-            <div class="level-button active">Stufe 1</div>
-            <div class="level-button">Stufe 2</div>
-            <div class="level-button">Stufe 3</div>
+        <div class="grid-row" id="topic-nav">
+            <div class="topic-button active" onclick="setTopic('W', this)">Prozentwert berechnen</div>
+            <div class="topic-button" onclick="setTopic('p', this)">Prozentsatz berechnen</div>
+            <div class="topic-button" onclick="setTopic('G', this)">Grundwert berechnen</div>
+            <div class="topic-button" onclick="setTopic('Gplus', this)">verm. Grundwert (Netto/Brutto)</div>
+            <div class="topic-button" onclick="setTopic('Gminus', this)">verm. Grundwert (Rabatt)</div>
         </div>
 
         <div class="task-box">
             <span class="label">Aufgabe:</span>
-            <p id="question-text" style="font-size: 1.2rem; line-height: 1.5;">Lade Aufgabe...</p>
+            <p id="question-text" style="font-size: 1.15rem; line-height: 1.6;">Lade Aufgabe...</p>
         </div>
 
         <div class="input-area">
             <label>Lösung:</label>
-            <input type="number" id="user-val" placeholder="Dein Ergebnis..." step="0.01">
-            <span style="margin-left: 10px; font-weight: bold;">€/%</span>
+            <input type="number" id="user-val" placeholder="Ergebnis eingeben..." step="0.01">
+            <span id="unit" style="margin-left: 10px; font-weight: bold; color: var(--border-dark);"></span>
         </div>
 
         <div class="footer-actions">
             <div class="btn-action btn-feedback" onclick="validate()">
                 <span id="res-label">Rückmeldung</span>
             </div>
-            <div class="btn-action btn-next" onclick="next()">
+            <div class="btn-action btn-next" onclick="nextTask()">
                 Nächste Aufgabe
             </div>
         </div>
     </div>
 
     <script>
-        const pool = [
-            { q: "Ein Sakko kostet 99,00€ brutto. Wie viel Euro beträgt der Rabatt bei 10% Nachlass?", a: 9.90 },
-            { q: "Bareinnahmen brutto: 2.259,70€. Steuersatz 19%. Berechne den Nettowert.", a: 1898.91 },
-            { q: "Ein Anorak kostet nach 5% Rabatt noch 118,75€. Wie hoch war der ursprüngliche Preis?", a: 125.00 },
-            { q: "Bluse: Ursprünglich 21,00€, jetzt 16,80€. Wie viel Prozent Rabatt wurden gewährt?", a: 20 },
-            { q: "Bruttopreis 34,98€, USt 19%. Wie hoch ist der Netto-Verkaufspreis?", a: 29.39 },
-            { q: "Ein Händler erhöht den Preis von 845,12€ auf 914,84€. Wie viel % Steigerung?", a: 8.25 }
-        ];
+        const taskPool = {
+            'W': [
+                { q: "Ein Großhändler gewährt auf eine Warenlieferung im Wert von 1.250,00 € einen Treuerabatt von 12 %. Wie viel Euro beträgt der Rabatt?", a: 150.00, u: "€" },
+                { q: "Von 3.500 produzierten Bauteilen weisen 4 % Mängel auf. Wie viele Bauteile sind fehlerhaft?", a: 140, u: "Stück" }
+            ],
+            'p': [
+                { q: "Ein Artikel wurde von 180,00 € auf 153,00 € reduziert. Wie viel Prozent Preisnachlass entspricht das?", a: 15, u: "%" },
+                { q: "Ein Vertreter erhält für einen Verkauf von 5.000,00 € eine Provision von 225,00 €. Berechne den Provisionssatz.", a: 4.5, u: "%" }
+            ],
+            'G': [
+                { q: "Nach Abzug von 3 % Skonto (das entspricht 18,00 €) wird eine Rechnung beglichen. Wie hoch war der ursprüngliche Rechnungsbetrag?", a: 600.00, u: "€" },
+                { q: "In einer Stadt sind 2.400 Personen arbeitslos. Das entspricht einer Quote von 8 %. Wie viele Erwerbspersonen gibt es insgesamt?", a: 30000, u: "Personen" }
+            ],
+            'Gplus': [
+                { q: "Ein PC wird für 1.071,00 € inklusive 19 % Umsatzsteuer verkauft. Berechne den Nettopreis.", a: 900.00, u: "€" },
+                { q: "Eine Aktie ist um 15 % gestiegen und steht nun bei 230,00 €. Wie hoch war der Kurs vor dem Anstieg?", a: 200.00, u: "€" }
+            ],
+            'Gminus': [
+                { q: "Ein Wintermantel kostet im Ausverkauf nach 20 % Rabatt noch 144,00 €. Berechne den ursprünglichen Verkaufspreis.", a: 180.00, u: "€" },
+                { q: "Ein Unternehmen reduziert seine Belegschaft um 10 % auf nunmehr 450 Mitarbeiter. Wie viele Mitarbeiter waren es zuvor?", a: 500, u: "Mitarbeiter" }
+            ]
+        };
 
-        let activeTask = null;
+        let currentCategory = 'W';
+        let currentTask = null;
 
-        function next() {
-            activeTask = pool[Math.floor(Math.random() * pool.length)];
-            document.getElementById('question-text').innerText = activeTask.q;
-            document.getElementById('res-label').innerHTML = "Rückmeldung";
-            document.getElementById('res-label').className = "feedback-msg";
+        function setTopic(cat, element) {
+            currentCategory = cat;
+            document.querySelectorAll('.topic-button').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            nextTask();
+        }
+
+        function nextTask() {
+            const tasks = taskPool[currentCategory];
+            currentTask = tasks[Math.floor(Math.random() * tasks.length)];
+            document.getElementById('question-text').innerText = currentTask.q;
+            document.getElementById('unit').innerText = currentTask.u;
+            document.getElementById('res-label').innerText = "Rückmeldung";
+            document.getElementById('res-label').className = "";
             document.getElementById('user-val').value = "";
             document.getElementById('user-val').focus();
         }
 
         function validate() {
-            if (!activeTask) return;
-            const input = parseFloat(document.getElementById('user-val').value);
+            if (!currentTask) return;
+            const val = parseFloat(document.getElementById('user-val').value);
             const label = document.getElementById('res-label');
             
-            if (Math.abs(input - activeTask.a) < 0.05) {
-                label.innerHTML = "Korrekt! ✓";
-                label.className = "feedback-msg correct";
+            if (isNaN(val)) return;
+
+            if (Math.abs(val - currentTask.a) < 0.01) {
+                label.innerText = "Korrekt! ✓";
+                label.className = "correct";
             } else {
-                label.innerHTML = "Falsch (Lösung: " + activeTask.a.toFixed(2) + ")";
-                label.className = "feedback-msg wrong";
+                label.innerText = "Falsch! Lösung: " + currentTask.a.toLocaleString('de-DE', {minimumFractionDigits: 2});
+                label.className = "wrong";
             }
         }
 
-        // Init
-        next();
+        // Initialisierung
+        nextTask();
     </script>
 </body>
 </html>
