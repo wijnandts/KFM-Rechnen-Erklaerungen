@@ -1,6 +1,3 @@
-import os
-
-html_content = """
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -101,7 +98,13 @@ html_content = """
             text-align: center;
         }
 
-        strong { color: var(--zins-dark); }
+        .rule-card {
+            border: 2px solid var(--zins-main);
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -111,93 +114,74 @@ html_content = """
     
     <header>
         <h1>Zinsrechnung</h1>
-        <p>Systematische Erläuterung der kaufmännischen Zinsberechnung für verschiedene Zeiträume.</p>
+        <p>Systematische Erläuterung der kaufmännischen Zinsberechnung unter Berücksichtigung der gesetzlichen Zinstage-Regelung.</p>
     </header>
 
     <div class="important-box">
-        <strong>Definition:</strong> Zinsen sind das Entgelt, das für das Überlassen von Kapital über einen bestimmten Zeitraum gezahlt wird. Die Berechnung basiert auf dem Kapital (K), dem Zinssatz (p) und der Zeit (t).
+        <strong>Definition:</strong> Zinsen sind das Entgelt für die zeitweilige Überlassung von Kapital. Sie hängen von der Höhe des Kapitals (K), dem Zinssatz (p) und der Laufzeit (t) ab.
     </div>
 
     <h2>1. Die kaufmännische Zinsmethode (30/360)</h2>
     <div class="detail-section">
-        <p>In der kaufmännischen Praxis wird die Berechnung durch vereinfachte Annahmen standardisiert, um eine einheitliche Grundlage zu schaffen:</p>
+        <p>Um Berechnungen zu vereinfachen, nutzt man im kaufmännischen Bereich standardisierte Werte:</p>
         <div class="grid-3">
-            <div class="grid-item"><strong>Das Jahr</strong><br>wird mit 360 Tagen gerechnet.</div>
-            <div class="grid-item"><strong>Der Monat</strong><br>wird mit 30 Tagen gerechnet.</div>
-            <div class="grid-item"><strong>Der Zinstag</strong><br>wird ab dem ersten Tag berechnet (der Rückzahltag zählt nicht mit).</div>
+            <div class="grid-item"><strong>Zinsjahr</strong><br>360 Tage</div>
+            <div class="grid-item"><strong>Zinsmonat</strong><br>30 Tage</div>
+            <div class="grid-item"><strong>Gesetzliche Regelung</strong><br>1. Tag frei, letzter Tag zählt</div>
         </div>
     </div>
 
-    <h2>2. Die drei Basisberechnungen</h2>
+    <div class="rule-card">
+        <span class="badge" style="background: #e67e22;">Wichtig: Die Zinstage-Regel</span>
+        <p>Bei der Ermittlung der Laufzeit gilt der Grundsatz: <strong>Der erste Tag (Einzahlungstag) wird nicht mitverzinst, der letzte Tag (Rückzahlungstag) hingegen schon.</strong></p>
+        <p><em>Beispiel:</em> Eine Anlage vom 01. bis zum 10. eines Monats ergibt genau <strong>9 Zinstage</strong>.</p>
+    </div>
+
+    <h2>2. Zeitabhängige Zinsformeln</h2>
 
     <div class="detail-section">
         <span class="badge">Jährlich</span>
         <h3>A) Jahreszinsen</h3>
-        <p>Diese Formel wird angewendet, wenn das Kapital für genau ein Jahr oder mehrere volle Jahre angelegt wird.</p>
-        <div class="formula-card">
-            Z = (K * p) / 100
-        </div>
-        <p><strong>Erklärung der Variablen:</strong><br>
-        <strong>Z:</strong> Zinsbetrag in Euro<br>
-        <strong>K:</strong> Kapital (Ausgangsbetrag)<br>
-        <strong>p:</strong> Zinssatz (Prozentsatz pro Jahr)
-        </p>
+        <p>Anwendung bei vollen Jahren.</p>
+        <div class="formula-card">Z = (K * p) / 100</div>
     </div>
 
     <div class="detail-section">
         <span class="badge">Monatlich</span>
         <h3>B) Monatszinsen</h3>
-        <p>Wird das Kapital nur für eine bestimmte Anzahl von Monaten angelegt, muss die Zeitkomponente (m) in die Formel integriert werden. Da ein Jahr 12 Monate hat, wird die Basisformel durch 12 geteilt.</p>
-        <div class="formula-card">
-            Z = (K * p * m) / (100 * 12)
-        </div>
-        <p><strong>Zusätzliche Variable:</strong><br>
-        <strong>m:</strong> Anzahl der Monate
-        </p>
+        <p>Anwendung bei monatlicher Laufzeit (m).</p>
+        <div class="formula-card">Z = (K * p * m) / (100 * 12)</div>
     </div>
 
     <div class="detail-section">
         <span class="badge">Täglich</span>
         <h3>C) Tageszinsen</h3>
-        <p>Dies ist die präziseste kaufmännische Berechnung für Zeiträume unter einem Jahr. Hierbei wird die Anzahl der Tage (t) berücksichtigt. Basierend auf dem kaufmännischen Jahr wird durch 360 geteilt.</p>
-        <div class="formula-card">
-            Z = (K * p * t) / (100 * 360)
+        <p>Anwendung bei tageweiser Laufzeit (t). Hierbei wird das kaufmännische Jahr mit 360 Tagen als Basis genutzt.</p>
+        <div class="formula-card">Z = (K * p * t) / (100 * 360)</div>
+    </div>
+
+    <h2>3. Praxisbeispiel zur Zinstage-Berechnung</h2>
+    <div class="detail-section">
+        <p>Berechnung vom 15. Mai bis 20. August nach der kaufmännischen Methode (30 Tage pro Monat):</p>
+        <ul>
+            <li><strong>Mai:</strong> 15 Tage (30 Tage - 15 Tage des ersten Monats)</li>
+            <li><strong>Juni:</strong> 30 Tage (voller Monat)</li>
+            <li><strong>Juli:</strong> 30 Tage (voller Monat)</li>
+            <li><strong>August:</strong> 20 Tage (der letzte Tag wird voll mitgezählt)</li>
+        </ul>
+        <div class="important-box" style="text-align: center;"><strong>Gesamt: 15 + 30 + 30 + 20 = 95 Zinstage</strong></div>
+    </div>
+
+    <h2>4. Umstellung der Formeln (Tageszinsen)</h2>
+    <div class="detail-section">
+        <p>Sie können die Formel nach der gesuchten Größe auflösen:</p>
+        <div class="grid-3">
+            <div class="grid-item"><strong>Kapital (K)</strong><br>(Z * 100 * 360) / (p * t)</div>
+            <div class="grid-item"><strong>Zinssatz (p)</strong><br>(Z * 100 * 360) / (K * t)</div>
+            <div class="grid-item"><strong>Tage (t)</strong><br>(Z * 100 * 360) / (K * p)</div>
         </div>
-        <p><strong>Zusätzliche Variable:</strong><br>
-        <strong>t:</strong> Anzahl der Tage (Zinstage)
-        </p>
     </div>
-
-    <h2>3. Berechnung der Zinstage (Praxis)</h2>
-    <div class="detail-section">
-        <p>Um die Zinstage (t) korrekt zu ermitteln, beachten Sie bitte folgende Regeln der 30/360-Methode:</p>
-        <ul>
-            <li>Jeder volle Monat wird mit <strong>30 Tagen</strong> berechnet, unabhängig davon, ob er tatsächlich 28, 29 oder 31 Tage hat.</li>
-            <li><strong>Beispiel:</strong> Eine Anlage vom 10. März bis zum 10. Juni.<br>
-                März: 20 Tage (30 - 10)<br>
-                April: 30 Tage<br>
-                Mai: 30 Tage<br>
-                Juni: 10 Tage<br>
-                <strong>Gesamt: 90 Zinstage</strong>
-            </li>
-        </ul>
-    </div>
-
-    <h2>4. Umstellen der Formel</h2>
-    <div class="detail-section">
-        <p>Je nachdem, welche Information Sie suchen, muss die Formel (hier am Beispiel der Tageszinsen) umgestellt werden:</p>
-        <ul>
-            <li><strong>Suche Kapital (K):</strong> K = (Z * 100 * 360) / (p * t)</li>
-            <li><strong>Suche Zinssatz (p):</strong> p = (Z * 100 * 360) / (K * t)</li>
-            <li><strong>Suche Zeit (t):</strong> t = (Z * 100 * 360) / (K * p)</li>
-        </ul>
-    </div>
-
 </div>
 
 </body>
 </html>
-"""
-
-with open("zinsen_erklaerung.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
