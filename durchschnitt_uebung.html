@@ -8,7 +8,6 @@
         :root {
             --main: #4834d4;
             --main-hover: #3c2bb3;
-            --light: #a29bfe;
             --bg: #f0f2f5;
             --text: #2d3436;
             --white: #ffffff;
@@ -32,7 +31,7 @@
             color: var(--grey);
             font-size: 0.9rem;
             margin-bottom: 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
         }
 
@@ -65,57 +64,59 @@
         }
 
         .question-box {
-            background: #fdfdfd;
-            border: 1px solid #edf2f7;
-            border-radius: 15px;
+            background: #f9f9fb;
+            border-left: 5px solid var(--main);
+            border-radius: 8px;
             padding: 25px;
-            margin-bottom: 20px;
-            min-height: 100px;
-            font-size: 1.1rem;
+            margin-bottom: 25px;
+            min-height: 80px;
+            font-size: 1.15rem;
             line-height: 1.6;
+            color: #34495e;
         }
 
         .warning-text {
-            color: #f39c12;
-            font-weight: bold;
-            font-size: 0.85rem;
+            color: #d35400;
+            font-weight: 600;
+            font-size: 0.9rem;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
         }
 
         input[type="number"] {
             width: 100%;
             padding: 15px;
-            border: 2px solid #edf2f7;
+            border: 2px solid #dfe6e9;
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 20px;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
 
         input[type="number"]:focus {
             border-color: var(--main);
+            box-shadow: 0 0 8px rgba(72, 52, 212, 0.2);
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             border-radius: 10px;
             border: none;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            text-transform: uppercase;
             transition: all 0.2s;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .btn-primary { background: var(--main); color: white; }
-        .btn-primary:hover { background: var(--main-hover); }
+        .btn-primary:hover { background: var(--main-hover); transform: translateY(-1px); }
         .btn-secondary { background: #f1f2f6; color: var(--text); }
         .btn-secondary:hover { background: #dfe4ea; }
 
@@ -126,49 +127,56 @@
             padding: 20px;
             height: fit-content;
             color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .calc-header {
             font-weight: bold;
             margin-bottom: 15px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #b2bec3;
         }
 
         #calc-display {
-            background: #636e72;
+            background: #3d4648;
             padding: 15px;
             text-align: right;
-            font-size: 1.5rem;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            min-height: 1.5rem;
+            font-size: 1.6rem;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            min-height: 2rem;
+            font-family: monospace;
+            color: #55efc4;
         }
 
         .calc-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 12px;
         }
 
         .calc-btn {
             background: #4b5456;
             border: none;
-            padding: 15px;
+            padding: 18px 10px;
             color: white;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1.1rem;
         }
 
         .calc-btn.op { background: var(--main); }
         .calc-btn.clear { background: #e17055; }
-        .calc-btn.equal { background: #27ae60; grid-column: span 3; }
+        .calc-btn.equal { background: #00b894; grid-column: span 3; }
+        .calc-btn:active { transform: scale(0.95); }
 
         #feedback {
-            margin-top: 10px;
+            margin-bottom: 15px;
             font-weight: bold;
             text-align: center;
+            font-size: 1.1rem;
         }
 
         @media (max-width: 850px) {
@@ -184,18 +192,18 @@
     <div class="main-layout">
         <div class="card">
             <h1>Durchschnitts-Master Pro</h1>
-            <p class="subtitle">Übungsmodul für Mittelwerte und gewichtete Kalkulationen</p>
+            <p class="subtitle">Übungsmodul für Mittelwerte und kaufmännische Kalkulationen</p>
 
             <div id="quiz-area">
-                <div class="question-box" id="question-text">Lade Aufgabe...</div>
+                <div class="question-box" id="question-text">Lade neue Textaufgabe...</div>
                 
-                <p class="warning-text">⚠️ Bitte runden Sie Ihr Ergebnis auf 2 Dezimalstellen!</p>
+                <div class="warning-text">⚠️ Info: Bitte das Ergebnis kaufmännisch auf 2 Stellen runden!</div>
                 
-                <input type="number" id="user-answer" placeholder="Ihr Ergebnis" step="0.01">
                 <div id="feedback"></div>
+                <input type="number" id="user-answer" placeholder="Dein Ergebnis eingeben" step="0.01">
 
-                <button class="btn btn-primary" onclick="checkCurrentAnswer()">Eingabe prüfen</button>
-                <button class="btn btn-secondary" onclick="generateNewQuestion()">Nächste Aufgabe</button>
+                <button class="btn btn-primary" onclick="checkCurrentAnswer()">Antwort prüfen</button>
+                <button class="btn btn-secondary" onclick="generateTextTask()">Nächste Aufgabe</button>
             </div>
         </div>
 
@@ -231,42 +239,58 @@
     <script>
         let currentTask;
 
-        function generateNewQuestion() {
-            // Logik: Zufällige Entscheidung zwischen gewichtetem und einfachem Durchschnitt
-            // Alle Werte sind strikt > 1
-            const type = Math.random() > 0.5 ? 'simple' : 'weighted';
-            
-            if (type === 'simple') {
-                const v1 = (Math.random() * 500 + 10).toFixed(2);
-                const v2 = (Math.random() * 500 + 10).toFixed(2);
-                const v3 = (Math.random() * 500 + 10).toFixed(2);
-                const avg = (parseFloat(v1) + parseFloat(v2) + parseFloat(v3)) / 3;
-                
-                currentTask = {
-                    q: `Berechne den Durchschnitt der folgenden Beträge: ${v1}€, ${v2}€ und ${v3}€?`,
-                    a: avg
-                };
-            } else {
-                // Gewichteter Durchschnitt (z.B. Mischung)
-                const menge1 = Math.floor(Math.random() * 10 + 2); // 2-11 kg
-                const preis1 = (Math.random() * 5 + 2).toFixed(2); // 2.00-7.00 €
-                const menge2 = Math.floor(Math.random() * 10 + 2);
-                const preis2 = (Math.random() * 3 + 1.1).toFixed(2); // 1.10-4.10 €
-                
-                const gesamtMenge = menge1 + menge2;
-                const gesamtPreis = (menge1 * preis1) + (menge2 * preis2);
-                const avg = gesamtPreis / gesamtMenge;
+        function generateTextTask() {
+            const scenarios = [
+                () => {
+                    const v1 = Math.floor(Math.random() * 500 + 100);
+                    const v2 = Math.floor(Math.random() * 500 + 100);
+                    const v3 = Math.floor(Math.random() * 500 + 100);
+                    return {
+                        q: `Ein Einzelhändler erzielte in drei aufeinanderfolgenden Tagen folgende Umsätze: ${v1} €, ${v2} € und ${v3} €. Berechne den durchschnittlichen Tagesumsatz.`,
+                        a: (v1 + v2 + v3) / 3
+                    };
+                },
+                () => {
+                    const m1 = Math.floor(Math.random() * 20 + 5);
+                    const p1 = (Math.random() * 10 + 2).toFixed(2);
+                    const m2 = Math.floor(Math.random() * 20 + 5);
+                    const p2 = (Math.random() * 10 + 2).toFixed(2);
+                    const gesamt = (m1 * p1 + m2 * p2) / (m1 + m2);
+                    return {
+                        q: `Für eine Hausmischung werden ${m1} kg Kaffee der Sorte A (Preis: ${p1} €/kg) mit ${m2} kg der Sorte B (Preis: ${p2} €/kg) gemischt. Was kostet ein Kilo der Mischung im Durchschnitt?`,
+                        a: gesamt
+                    };
+                },
+                () => {
+                    const werte = [
+                        Math.floor(Math.random() * 10 + 20),
+                        Math.floor(Math.random() * 10 + 20),
+                        Math.floor(Math.random() * 10 + 20),
+                        Math.floor(Math.random() * 10 + 20)
+                    ];
+                    const sum = werte.reduce((a, b) => a + b, 0);
+                    return {
+                        q: `In einer Abteilung arbeiten 4 Mitarbeiter. Diese sind ${werte[0]}, ${werte[1]}, ${werte[2]} und ${werte[3]} Jahre alt. Wie hoch ist das Durchschnittsalter des Teams?`,
+                        a: sum / 4
+                    };
+                },
+                () => {
+                    const m1 = Math.floor(Math.random() * 100 + 50);
+                    const p1 = (Math.random() * 40 + 10).toFixed(2);
+                    const m2 = Math.floor(Math.random() * 100 + 50);
+                    const p2 = (Math.random() * 40 + 10).toFixed(2);
+                    return {
+                        q: `Ein Lager erhält zwei Lieferungen Rohstoffe: ${m1} Einheiten zu je ${p1} € und ${m2} Einheiten zu je ${p2} €. Bestimme den gewogenen Durchschnittspreis pro Einheit.`,
+                        a: (m1 * p1 + m2 * p2) / (m1 + m2)
+                    };
+                }
+            ];
 
-                currentTask = {
-                    q: `Eine Mischung besteht aus ${menge1}kg zu ${preis1}€/kg und ${menge2}kg zu ${preis2}€/kg. Wie hoch ist der Durchschnittspreis pro kg?`,
-                    a: avg
-                };
-            }
-
+            currentTask = scenarios[Math.floor(Math.random() * scenarios.length)]();
             document.getElementById('question-text').innerText = currentTask.q;
             document.getElementById('user-answer').value = '';
             document.getElementById('feedback').innerHTML = '';
-            document.getElementById('user-answer').style.borderColor = '#edf2f7';
+            document.getElementById('user-answer').style.borderColor = '#dfe6e9';
         }
 
         function checkCurrentAnswer() {
@@ -276,19 +300,21 @@
 
             if(isNaN(userVal)) return;
 
-            // Toleranz für Rundungen auf 2 Stellen
-            if(Math.abs(userVal - currentTask.a) < 0.015) {
-                feedback.innerHTML = "✅ Richtig!";
-                feedback.style.color = "green";
-                input.style.borderColor = "green";
+            // Kaufmännische Rundungstoleranz
+            const correct = Math.round(currentTask.a * 100) / 100;
+            
+            if(Math.abs(userVal - correct) < 0.01) {
+                feedback.innerHTML = "✅ Hervorragend! Das Ergebnis ist korrekt.";
+                feedback.style.color = "#27ae60";
+                input.style.borderColor = "#27ae60";
             } else {
-                feedback.innerHTML = "❌ Falsch. Korrekt wäre: " + currentTask.a.toFixed(2);
-                feedback.style.color = "red";
-                input.style.borderColor = "red";
+                feedback.innerHTML = `❌ Nicht ganz. Das richtige Ergebnis ist ${correct.toFixed(2)}.`;
+                feedback.style.color = "#e17055";
+                input.style.borderColor = "#e17055";
             }
         }
 
-        // Rechner Logik
+        // Rechner Funktionalität
         let calcExpression = "";
         function addNum(n) { calcExpression += n; updateDisplay(); }
         function calcOp(op) { calcExpression += op; updateDisplay(); }
@@ -298,19 +324,18 @@
         }
         function calculateResult() {
             try {
-                // Einfache Evaluierung für den internen Rechner
                 let result = eval(calcExpression);
-                calcExpression = Number.isInteger(result) ? result.toString() : result.toFixed(4);
+                calcExpression = Number.isInteger(result) ? result.toString() : result.toFixed(2);
                 updateDisplay();
             } catch {
-                calcExpression = "Error";
+                calcExpression = "Fehler";
                 updateDisplay();
                 setTimeout(clearCalc, 1000);
             }
         }
 
-        // Initialisierung
-        generateNewQuestion();
+        // Initiale Aufgabe
+        generateTextTask();
     </script>
 </body>
 </html>
