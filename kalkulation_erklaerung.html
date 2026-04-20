@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fachwissen: Handelskalkulation Profi</title>
+    <title>Master-Guide: Handelskalkulation</title>
     <style>
         :root {
-            --bg: #ecf0f1;
+            --bg: #f4f7f6;
             --text: #2c3e50;
             --kalk-main: #d63031;
-            --kalk-light: #ff7675;
             --kalk-dark: #b33939;
             --white: #ffffff;
+            --step-bg: #fff9f9;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             background-color: var(--bg);
             color: var(--text);
@@ -34,48 +34,58 @@
 
         header {
             border-bottom: 5px solid var(--kalk-main);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
         }
 
-        h1 { font-size: 2.2rem; margin: 0; color: var(--kalk-dark); }
-        h2 { font-size: 1.6rem; color: var(--kalk-main); margin-top: 40px; border-left: 5px solid var(--kalk-main); padding-left: 15px; }
-        
-        .back-link { text-decoration: none; color: var(--text); font-weight: bold; }
+        h1 { font-size: 2.5rem; color: var(--kalk-dark); margin: 0; }
+        h2 { font-size: 1.8rem; color: var(--kalk-main); margin-top: 50px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h3 { color: var(--kalk-dark); background: var(--step-bg); padding: 10px; border-radius: 5px; }
 
-        .schema-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+        .back-link { text-decoration: none; color: var(--text); font-weight: bold; margin-bottom: 20px; display: inline-block; }
 
-        .schema-table th { background: var(--kalk-main); color: white; padding: 15px; text-align: left; }
-        .schema-table td { padding: 10px 15px; border-bottom: 1px solid #eee; }
-        .schema-table tr.highlight-row { background: #fff5f5; font-weight: bold; color: var(--kalk-dark); }
-        .schema-table tr.new-row { background: #fffde7; } /* Markierung für die Korrektur */
-
-        .info-card {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
-
-        .formula-box {
-            background: var(--text);
-            color: var(--kalk-light);
-            padding: 15px;
-            border-radius: 8px;
+        /* Schema Style */
+        .schema-box {
+            background: #2d3436;
+            color: #dfe6e9;
+            padding: 25px;
+            border-radius: 15px;
             font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Detail Sektionen */
+        .detail-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 15px;
+        }
+
+        .formula-card {
+            background: #fff5f5;
+            border-left: 5px solid var(--kalk-main);
+            padding: 15px;
+            margin: 15px 0;
             font-weight: bold;
-            text-align: center;
-            margin: 10px 0;
+        }
+
+        .example-box {
+            background: #f0f9ff;
+            border-left: 5px solid #0984e3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--kalk-main);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -85,54 +95,102 @@
     <a href="index.html" class="back-link">← Zurück zum Dashboard</a>
     
     <header>
-        <h1>Handelskalkulation</h1>
-        <p>Präzises Schema für den Einzelhandel.</p>
+        <h1>Die Handelskalkulation: Der komplette Guide</h1>
+        <p>Jeder Schritt, jeder Zuschlag und jede Methode im Detail erklärt.</p>
     </header>
 
-    <h2>1. Das vollständige Kalkulationsschema</h2>
-    <table class="schema-table">
-        <thead>
-            <tr>
-                <th>Rechenschritt</th>
-                <th>Posten</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td></td><td>Listeneinkaufspreis</td></tr>
-            <tr><td>-</td><td>Liefererrabatt</td></tr>
-            <tr><td>=</td><td>Zieleinkaufspreis</td></tr>
-            <tr><td>-</td><td>Liefererskonto</td></tr>
-            <tr><td>=</td><td>Bareinkaufspreis</td></tr>
-            <tr><td>+</td><td>Bezugskosten</td></tr>
-            <tr class="highlight-row"><td>=</td><td>Bezugspreis (Einstandspreis)</td></tr>
-            <tr><td>+</td><td>Handlungskosten (in %)</td></tr>
-            <tr class="highlight-row"><td>=</td><td>Selbstkostenpreis</td></tr>
-            <tr><td>+</td><td>Gewinnzuschlag (in %)</td></tr>
-            <tr class="highlight-row"><td>=</td><td>Barverkaufspreis</td></tr>
-            <tr><td>+</td><td>Kundenskonto</td></tr>
-            <tr class="highlight-row"><td>=</td><td>Zielverkaufspreis</td></tr>
-            <tr><td>+</td><td>Kundenrabatt</td></tr>
-            <tr class="highlight-row"><td>=</td><td>Nettoverkaufspreis</td></tr>
-            <tr><td>+</td><td>Umsatzsteuer (19% oder 7%)</td></tr>
-            <tr class="highlight-row"><td>=</td><td>Bruttoverkaufspreis</td></tr>
-        </tbody>
-    </table>
+    <h2>1. Das Basisschema (Die Kette)</h2>
+    <div class="schema-box">
+        Listeneinkaufspreis (LEP)<br>
+        - Lieferrabatt<br>
+        = Zieleinkaufspreis (ZEP)<br>
+        - Liefererskonto<br>
+        = Bareinkaufspreis (BEP)<br>
+        + Bezugskosten<br>
+        <strong>= Bezugspreis (Einstandspreis)</strong><br>
+        + Handlungskosten (in %)<br>
+        <strong>= Selbstkostenpreis</strong><br>
+        + Gewinnzuschlag (in %)<br>
+        <strong>= Barverkaufspreis (BVP)</strong><br>
+        + Kundenskonto<br>
+        <strong>= Zielverkaufspreis (ZVP)</strong><br>
+        + Kundenrabatt<br>
+        <strong>= Nettoverkaufspreis (NVP)</strong><br>
+        + Umsatzsteuer<br>
+        <strong>= Bruttoverkaufspreis (BVP)</strong>
+    </div>
 
-    <h2>2. Erläuterung der Verkaufskalkulation</h2>
+    <h2>2. Die Einkaufskalkulation (Detail)</h2>
     
-    <div class="info-card">
-        <h3>Warum der Zielverkaufspreis wichtig ist:</h3>
-        <p>Der <strong>Zielverkaufspreis</strong> ist die Basis für die Gewährung von Rabatten. In der Kalkulation rechnen wir vom gewünschten Barverkaufspreis "im Hundert" nach oben, um sicherzustellen, dass wir trotz Skonto und Rabatt unseren geplanten Gewinn behalten.</p>
+    <div class="detail-section">
+        <h3>Listeneinkaufspreis bis Bezugspreis</h3>
+        <p>Hier ermitteln wir, was uns die Ware wirklich kostet, wenn sie "ins Regal" kommt.</p>
         <ul>
-            <li><strong>Barverkaufspreis + Kundenskonto:</strong> Ergibt den Preis, den der Kunde bei Zielzahlung (ohne Skonto) leisten müsste.</li>
-            <li><strong>Zielverkaufspreis + Kundenrabatt:</strong> Ergibt den Preis, der im Katalog oder auf dem Preisschild (Netto) steht.</li>
+            <li><strong>Lieferrabatt:</strong> Mengen- oder Treuenachlass des Großhändlers.</li>
+            <li><strong>Liefererskonto:</strong> Belohnung für schnelle Zahlung (meist 2-3 %).</li>
+            <li><strong>Bezugskosten:</strong> Alles, was den Transport betrifft (Fracht, Porto, Rollgeld, Versicherung).</li>
         </ul>
+        <div class="formula-card">Merke: Rabatte und Skonti werden abgezogen, Kosten kommen oben drauf!</div>
     </div>
 
-    <div class="info-card">
-        <h3>Wichtiger Hinweis zur Prozentrechnung:</h3>
-        <p>Beachte, dass Kundenskonto und Kundenrabatt in der Vorwärtskalkulation <strong>"im Hundert"</strong> gerechnet werden. Der Zielverkaufspreis stellt dabei jeweils 100% für den nächsten Schritt dar.</p>
+    <h2>3. Die Zuschlagssätze (Detail)</h2>
+
+    <div class="detail-section">
+        <span class="badge">WICHTIG</span>
+        <h3>Handlungskostenzuschlagssatz (HKZ)</h3>
+        <p>Ein Unternehmen hat Fixkosten (Miete, Gehälter, Strom). Diese müssen auf jede Ware verteilt werden.</p>
+        <div class="formula-box">HKZ % = (Handlungskosten in € * 100) / Bezugspreis</div>
+        <p><strong>Beispiel:</strong> Wenn dein HKZ 25 % beträgt, rechnest du: <em>Bezugspreis * 1,25</em>.</p>
     </div>
+
+    <div class="detail-section">
+        <span class="badge">PROFIT</span>
+        <h3>Gewinnzuschlagssatz</h3>
+        <p>Das ist dein kalkulierter Verdienst. Er wird auf die Selbstkosten aufgeschlagen.</p>
+        <div class="formula-box">Gewinn % = (Gewinn in € * 100) / Selbstkostenpreis</div>
+    </div>
+
+    <h2>4. Die Verkaufsfaktoren (Besonderheit!)</h2>
+    
+    <div class="detail-section">
+        <h3>Skonto & Rabatt "im Hundert"</h3>
+        <p>In der Vorwärtskalkulation musst du Kundenskonto und Rabatt <strong>"im Hundert"</strong> rechnen. Warum? Weil der Kunde den Rabatt vom <em>höheren</em> Preis abzieht. Du musst also vom Zielwert (100 %) zurückrechnen.</p>
+        <div class="example-box">
+            <strong>Rechnung Skonto:</strong> Barverkaufspreis / (100 - Skonto %) * 100 = Zielverkaufspreis
+        </div>
+    </div>
+
+    <h2>5. Die drei Kalkulationsmethoden (Detail)</h2>
+
+    <div class="detail-section">
+        <h3>A) Vorwärtskalkulation</h3>
+        <p><strong>Wann?</strong> Du hast eine Rechnung vom Lieferanten und willst den Ladenpreis wissen.</p>
+        <p><strong>Weg:</strong> Du rechnest das Schema von oben nach unten durch.</p>
+    </div>
+
+    <div class="detail-section">
+        <h3>B) Rückwärtskalkulation</h3>
+        <p><strong>Wann?</strong> Der Marktpreis steht fest (z.B. durch Prospekte der Konkurrenz). Du willst wissen, wie teuer du maximal einkaufen darfst.</p>
+        <p><strong>Weg:</strong> Du rechnest das Schema von <strong>unten nach oben</strong>. Achtung: Vorzeichen drehen sich um! (Aus Plus wird Minus, aus Minus wird Plus).</p>
+    </div>
+
+    <div class="detail-section">
+        <h3>C) Differenzkalkulation</h3>
+        <p><strong>Wann?</strong> Einkaufspreis und Marktpreis sind fest. Du willst wissen, ob am Ende genug Gewinn für dich übrig bleibt.</p>
+        <p><strong>Weg:</strong> Du rechnest von oben bis zu den Selbstkosten und von unten bis zum Barverkaufspreis. Die Lücke dazwischen ist dein <strong>Gewinn</strong>.</p>
+    </div>
+
+    <h2>6. Abkürzungen für Profis</h2>
+    <div class="detail-section">
+        <h3>Kalkulationszuschlag vs. Faktor</h3>
+        <p>Um nicht jedes Mal 15 Zeilen zu rechnen, nutzt man Kennzahlen:</p>
+        <ul>
+            <li><strong>Kalkulationszuschlag:</strong> (Bruttoverkaufspreis - Bezugspreis) * 100 / Bezugspreis</li>
+            <li><strong>Kalkulationsfaktor:</strong> Bruttoverkaufspreis / Bezugspreis</li>
+        </ul>
+        <div class="formula-card">Anwendung: Bezugspreis * Faktor = Brutto-Endpreis.</div>
+    </div>
+
 </div>
 
 </body>
