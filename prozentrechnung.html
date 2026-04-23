@@ -3,216 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fachwissen: Kaufmännische Prozentrechnung</title>
+    <title>Training: Prozentrechnung</title>
     <style>
         :root {
-            --bg: #ecf0f1;
-            --text: #2c3e50;
-            --prozent-main: #e17055;
-            --prozent-light: #fab1a0;
-            --prozent-dark: #b33939;
+            --main: #e17055;
+            --main-dark: #d35400;
+            --light: #fab1a0;
+            --bg: #f5f6fa;
+            --border-dark: #2d3436;
             --white: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
             margin: 0;
-            padding: 20px;
+            color: var(--border-dark);
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
+        .card {
             background: var(--white);
+            border: 2px solid var(--border-dark);
+            width: 100%;
+            max-width: 950px;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 10px 10px 0px var(--border-dark);
         }
 
-        header {
-            border-bottom: 5px solid var(--prozent-main);
-            margin-bottom: 40px;
-            padding-bottom: 10px;
-        }
-
-        h1 { font-size: 2.5rem; margin: 0; color: var(--prozent-dark); }
-        h2 { font-size: 1.8rem; color: var(--prozent-main); margin-top: 40px; border-left: 5px solid var(--prozent-main); padding-left: 15px; }
-        h3 { color: var(--prozent-dark); margin-top: 30px; }
-
-        .back-link { text-decoration: none; color: var(--text); font-weight: bold; display: block; margin-bottom: 20px; }
-        .back-link:hover { color: var(--prozent-main); }
-
-        /* 3D Boxen für Definitionen */
-        .def-box {
-            background: var(--prozent-light);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 6px 0 #e8917d;
-            margin: 20px 0;
-            color: var(--prozent-dark);
-        }
-
-        /* Größen-Karten */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .size-card {
-            background: #fdfdfd;
-            border: 2px solid #eee;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .size-card strong { display: block; font-size: 1.2rem; color: var(--prozent-main); margin-bottom: 10px; }
-
-        /* Rechenweg Boxen */
-        .logic-box {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-        }
-
-        .calculation-steps {
+        .header-row {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: white;
-            padding: 20px;
-            border: 1px dashed var(--prozent-main);
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 1.1rem;
+            margin-bottom: 35px;
+            gap: 20px;
         }
 
-        .formula-box {
-            background: var(--prozent-dark);
-            color: white;
-            padding: 15px;
+        .back-btn {
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: var(--border-dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
             border-radius: 8px;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .back-btn:hover {
+            background: var(--light);
+            border-color: var(--border-dark);
+        }
+
+        .main-title {
+            border: 3px solid var(--main);
+            border-radius: 30px;
+            padding: 8px 40px;
+            font-weight: 800;
+            color: var(--main);
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .grid-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .topic-button {
+            border: 2px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 15px 10px;
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
             text-align: center;
-            font-weight: bold;
-            margin-top: 15px;
-            box-shadow: 0 4px 0 #801e1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .highlight { color: var(--prozent-dark); font-weight: bold; }
+        .topic-button.active {
+            background: var(--main);
+            color: var(--white);
+            box-shadow: 4px 4px 0px var(--border-dark);
+        }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: var(--prozent-main); color: white; padding: 12px; text-align: left; }
-        td { padding: 12px; border-bottom: 1px solid #eee; }
+        .task-box {
+            border: 2px solid var(--border-dark);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            min-height: 160px;
+            background: #fffdfb;
+        }
+
+        .label {
+            font-weight: 900;
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 15px;
+            color: var(--main);
+            text-transform: uppercase;
+        }
+
+        .input-area {
+            border: 2px solid var(--border-dark);
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            background: var(--white);
+        }
+
+        .input-area input {
+            border: none;
+            border-bottom: 3px solid var(--light);
+            width: 100%;
+            font-size: 1.4rem;
+            padding: 5px;
+            outline: none;
+            font-weight: 600;
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-action {
+            flex: 1;
+            border: 2px solid var(--border-dark);
+            border-radius: 15px;
+            padding: 22px;
+            text-align: center;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .btn-feedback { background: var(--main); color: var(--white); }
+        .btn-next { background: #dfe6e9; }
+
+        .correct-anim { background: #27ae60 !important; color: white !important; }
+        .wrong-anim { background: #d63031 !important; color: white !important; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <a href="index.html" class="back-link">← Zurück zum Dashboard</a>
-    
-    <header>
-        <h1>Kaufmännische Prozentrechnung</h1>
-        <p>Vergleichbarkeit schaffen durch die Bezugszahl 100.</p>
-    </header>
+    <div class="card">
+        <div class="header-row">
+            <a href="index.html" class="back-btn">← DASHBOARD</a>
+            <div class="main-title">Prozentrechnung</div>
+        </div>
 
-    <div class="def-box">
-        <strong>Kernkonzept:</strong> Die Prozentrechnung ermöglicht es, unterschiedliche Ausgangswerte (z.B. Rabatte auf verschiedene Grundpreise) vergleichbar zu machen, indem alle Werte auf "vom Hundert" (per centum) normiert werden.
-    </div>
+        <div class="grid-row">
+            <div class="topic-button active" onclick="setTopic('W', this)">Prozentwert</div>
+            <div class="topic-button" onclick="setTopic('p', this)">Prozentsatz</div>
+            <div class="topic-button" onclick="setTopic('G', this)">Grundwert</div>
+            <div class="topic-button" onclick="setTopic('Gplus', this)">Vermehrter GW</div>
+            <div class="topic-button" onclick="setTopic('Gminus', this)">Verminderter GW</div>
+        </div>
 
-    <h2>1. Die drei Grundgrößen</h2>
-    <div class="grid-3">
-        <div class="size-card">
-            <strong>Grundwert (g)</strong>
-            Der Ausgangswert, der immer 100 % entspricht.
+        <div class="task-box">
+            <span class="label">Aufgabe</span>
+            <p id="question-text" style="font-size: 1.25rem; line-height: 1.6; margin: 0;">Lade Aufgabe...</p>
         </div>
-        <div class="size-card">
-            <strong>Prozentwert (w)</strong>
-            Der Teilwert in Euro, der dem Prozentsatz entspricht.
-        </div>
-        <div class="size-card">
-            <strong>Prozentsatz (p)</strong>
-            Der Anteil ausgedrückt in Prozent (mit dem Nenner 100).
-        </div>
-    </div>
 
-    <h2>2. Berechnung des Prozentwertes (w)</h2>
-    <div class="logic-box">
-        <p><span class="highlight">Situation:</span> Ein Sakko kostet 99,00 €. Es wird ein Rabatt von 10 % gewährt. Wie viel Euro Nachlass erhält der Kunde?</p>
-        <div class="calculation-steps">
-            <div>100 % ≙ 99,00 €</div>
-            <div>➔</div>
-            <div>10 % ≙ x €</div>
+        <div class="input-area">
+            <label style="font-weight:800; margin-right:20px;">LÖSUNG</label>
+            <input type="number" id="user-val" placeholder="0,00" step="0.01">
+            <span id="unit" style="margin-left:15px; font-weight:800; color:var(--main);"></span>
         </div>
-        <div class="formula-box">
-            x = (99,00 € × 10) / 100 = 9,90 €
+
+        <div class="footer-actions">
+            <div id="feedback-btn" class="btn-action btn-feedback" onclick="validate()">
+                <span id="res-label">Prüfen</span>
+            </div>
+            <div class="btn-action btn-next" onclick="nextTask()">Nächste</div>
         </div>
     </div>
 
-    <h2>3. Rechnen mit dem vermehrten Grundwert</h2>
-    <p>Hier ist der Grundwert <strong>mehr als 100 %</strong>. Klassisches Beispiel: Die Tageslosung inklusive Umsatzsteuer.</p>
-    
-    <div class="logic-box">
-        <p><span class="highlight">Beispiel:</span> Bareinnahmen von 2.259,70 € (Brutto). Darin sind 19 % MwSt enthalten. Wie hoch ist der reine Warenwert (Netto)?</p>
-        <p>Hier gilt: Warenwert (100 %) + MwSt (19 %) = <span class="highlight">119 %</span></p>
-        <div class="calculation-steps">
-            <div>119 % ≙ 2.259,70 €</div>
-            <div>➔</div>
-            <div>100 % ≙ x €</div>
-        </div>
-        <div class="formula-box">
-            Warenwert (Netto) = (2.259,70 € × 100) / 119 = 1.898,91 €
-        </div>
-    </div>
+    <script>
+        const taskPool = {
+            'W': [
+                { q: "Ein Händler kauft Ware für 4.500 €. Er erhält 12 % Rabatt. Wie viel Euro spart er?", a: 540, u: "€" },
+                { q: "Von 850 Mitarbeitern sind 6 % im Außendienst tätig. Wie viele Personen sind das?", a: 51, u: "Pers." },
+                { q: "Eine Versicherung erstattet 65 % eines Schadens von 2.400 €. Wie hoch ist die Erstattung?", a: 1560, u: "€" },
+                { q: "Ein Kunde zahlt eine Rechnung von 1.200 € unter Abzug von 3 % Skonto. Wie hoch ist der Skontobetrag?", a: 36, u: "€" }
+            ],
+            'p': [
+                { q: "Ein Vertreter erhält 450 € Provision für einen Umsatz von 9.000 €. Wie viel Prozent sind das?", a: 5, u: "%" },
+                { q: "Ein PC wurde von 800 € auf 680 € reduziert. Wie hoch ist der Prozentsatz des Rabatts?", a: 15, u: "%" },
+                { q: "In einer Klasse mit 25 Schülern fehlen heute 2 Schüler. Wie hoch ist die Fehlquote in Prozent?", a: 8, u: "%" },
+                { q: "Von 1.250 produzierten Teilen sind 50 fehlerhaft. Wie hoch ist der Ausschussanteil?", a: 4, u: "%" }
+            ],
+            'G': [
+                { q: "Ein Mieter zahlt 180 € Nebenkosten. Das sind 15 % der Gesamtmiete. Wie hoch ist die Gesamtmiete?", a: 1200, u: "€" },
+                { q: "Ein Skonto-Abzug von 2 % entspricht 44 €. Wie hoch war der ursprüngliche Rechnungsbetrag?", a: 2200, u: "€" },
+                { q: "24 Schüler einer Schule sind in der Theater-AG. Das sind 6 % aller Schüler. Wie viele Schüler hat die Schule?", a: 400, u: "Schüler" },
+                { q: "Eine Provision von 4 % ergibt 160 €. Welcher Umsatz wurde erzielt?", a: 4000, u: "€" }
+            ],
+            'Gplus': [
+                { q: "Ein Fernseher kostet inklusive 19 % USt 1.190 €. Wie hoch ist der Nettopreis?", a: 1000, u: "€" },
+                { q: "Ein Rechnungsbetrag von 535,50 € enthält 19 % USt. Berechne den Nettowert.", a: 450, u: "€" },
+                { q: "Nach einer Mieterhöhung um 5 % zahlt eine Familie 840 €. Wie hoch war die Miete vorher?", a: 800, u: "€" },
+                { q: "Ein Preis stieg um 20 % auf 144 €. Wie hoch war der ursprüngliche Preis?", a: 120, u: "€" }
+            ],
+            'Gminus': [
+                { q: "Nach Abzug von 10 % Rabatt kostet ein Handy noch 360 €. Wie hoch war der Originalpreis?", a: 400, u: "€" },
+                { q: "Ein Wintermantel wurde um 30 % reduziert und kostet nun 140 €. Was kostete er vorher?", a: 200, u: "€" },
+                { q: "Eine Flasche enthält nach 20 % Entnahme noch 400 ml. Wie viel war ursprünglich enthalten?", a: 500, u: "ml" },
+                { q: "Nach 2 % Skonto-Abzug zahlt ein Kunde 1.470 €. Wie hoch war der Rechnungsbetrag?", a: 1500, u: "€" }
+            ]
+        };
 
-    <h2>4. Rechnen mit dem verminderten Grundwert</h2>
-    <p>Der Wert liegt <strong>unter 100 %</strong>. Klassisches Beispiel: Ein bereits reduzierter Preis nach Rabattabzug.</p>
+        let currentCategory = 'W';
+        let currentTask = null;
 
-    <div class="logic-box">
-        <p><span class="highlight">Beispiel:</span> Ein Anorak wird mit 5 % Rabatt für 118,75 € verkauft. Wie hoch war der ursprüngliche Preis?</p>
-        <p>Hier gilt: Ursprung (100 %) - Rabatt (5 %) = <span class="highlight">95 %</span></p>
-        <div class="calculation-steps">
-            <div>95 % ≙ 118,75 €</div>
-            <div>➔</div>
-            <div>100 % ≙ x €</div>
-        </div>
-        <div class="formula-box">
-            VK-Preis vorher = (118,75 € × 100) / 95 = 125,00 €
-        </div>
-    </div>
+        function setTopic(cat, element) {
+            currentCategory = cat;
+            document.querySelectorAll('.topic-button').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            nextTask();
+        }
 
-    <h2>5. Der Prozentfaktor (Schnellkalkulation)</h2>
-    <p>Für effizientes Arbeiten im Einzelhandel nutzt man den Prozentfaktor:</p>
-    <table>
-        <tr>
-            <th>Ziel</th>
-            <th>Prozentsatz</th>
-            <th>Rechnung (Faktor)</th>
-        </tr>
-        <tr>
-            <td>Netto zu Brutto</td>
-            <td>19 % MwSt</td>
-            <td>NVP × <strong>1,19</strong></td>
-        </tr>
-        <tr>
-            <td>Brutto zu Netto</td>
-            <td>19 % MwSt</td>
-            <td>BVP / <strong>1,19</strong></td>
-        </tr>
-        <tr>
-            <td>Rabattierter Preis</td>
-            <td>5 % Rabatt</td>
-            <td>Grundwert × <strong>0,95</strong></td>
-        </tr>
-    </table>
+        function nextTask() {
+            const tasks = taskPool[currentCategory];
+            currentTask = tasks[Math.floor(Math.random() * tasks.length)];
+            document.getElementById('question-text').innerText = currentTask.q;
+            document.getElementById('unit').innerText = currentTask.u;
+            document.getElementById('res-label').innerText = "Prüfen";
+            document.getElementById('feedback-btn').className = "btn-action btn-feedback";
+            document.getElementById('user-val').value = "";
+            document.getElementById('user-val').focus();
+        }
 
-</div>
+        function validate() {
+            const val = parseFloat(document.getElementById('user-val').value);
+            const fbBtn = document.getElementById('feedback-btn');
+            if (isNaN(val)) return;
+            if (Math.abs(val - currentTask.a) < 0.01) {
+                document.getElementById('res-label').innerText = "Korrekt!";
+                fbBtn.className = "btn-action btn-feedback correct-anim";
+            } else {
+                document.getElementById('res-label').innerText = "Lösung: " + currentTask.a;
+                fbBtn.className = "btn-action btn-feedback wrong-anim";
+            }
+        }
 
+        nextTask();
+    </script>
 </body>
 </html>
